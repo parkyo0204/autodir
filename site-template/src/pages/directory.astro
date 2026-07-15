@@ -1,0 +1,98 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import DirectoryCard from '../components/DirectoryCard.astro';
+import directoryData from '../data/directory.json';
+
+const title = directoryData.niche || 'Directory';
+const description = directoryData.description || `Discover the best ${title} with reviews, ratings, and comparisons.`;
+---
+
+<BaseLayout title={title} description={description} niche={title}>
+  <section>
+    <h2>Best {title}</h2>
+    <p>{description}</p>
+
+    <div class="search-box">
+      <input type="text" placeholder={`Search ${title}...`} id="search-input" />
+    </div>
+
+    <div class="directory-grid">
+      {directoryData.items.map((item) => (
+        <DirectoryCard item={item} />
+      ))}
+    </div>
+  </section>
+
+  <!-- Q&A Section for GEO optimization -->
+  <section class="faq">
+    <h2>Frequently Asked Questions</h2>
+    {directoryData.faq?.map((qa) => (
+      <div class="faq-item">
+        <h3>Q. {qa.question}</h3>
+        <p>A. {qa.answer}</p>
+      </div>
+    ))}
+  </section>
+
+  <!-- Comparisons Section for pSEO -->
+  <section class="comparisons">
+    <h2>Comparisons</h2>
+    <ul>
+      {directoryData.comparisons?.map((comp) => (
+        <li>
+          <a href={`/compare/${comp.slug}`}>{comp.title}</a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .directory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .faq {
+    margin-top: 3rem;
+  }
+
+  .faq-item {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: #f9fafb;
+    border-radius: 0.5rem;
+  }
+
+  .faq-item h3 {
+    margin-bottom: 0.5rem;
+    color: var(--color-primary);
+  }
+
+  .comparisons {
+    margin-top: 3rem;
+  }
+
+  .comparisons ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .comparisons a {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: var(--color-primary);
+    color: white;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    font-size: 0.875rem;
+  }
+
+  .comparisons a:hover {
+    opacity: 0.9;
+  }
+</style>
