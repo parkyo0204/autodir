@@ -1,0 +1,339 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import pipelineData from '../../data/pipeline_report.json';
+import scoredNiches from '../../data/scored_niches.json';
+import decisions from '../../data/decisions.json';
+
+const title = 'AutoDir Dashboard';
+const description = 'Process tracking and decision log for AutoDir automation pipeline';
+
+// 파이프라인 상태 계산
+const steps = pipelineData.steps || {};
+const stepEntries = Object.entries(steps);
+const successCount = stepEntries.filter(([_, v]) => v.status === 'success').length;
+const totalSteps = stepEntries.length;
+
+// 상위 니치
+const topNiches = scoredNiches.niches?.slice(0, 10) || [];
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="dashboard">
+    <h1>AutoDir Dashboard</h1>
+    <p class="subtitle">Process tracking & decision log</p>
+
+    <!-- 시스템 상태 -->
+    <section class="status-section">
+      <h2>System Status</h2>
+      <div class="status-grid">
+        <div class="status-card">
+          <span class="status-icon">{successCount === totalSteps ? '✅' : '⚠️'}</span>
+          <span class="status-label">Pipeline</span>
+          <span class="status-value">{successCount}/{totalSteps} steps OK</span>
+        </div>
+        <div class="status-card">
+          <span class="status-icon">📊</span>
+          <span class="status-label">Niches Found</span>
+          <span class="status-value">{scoredNiches.total_signals_analyzed || 0}</span>
+        </div>
+        <div class="status-card">
+          <span class="status-icon">🕐</span>
+          <span class="status-label">Last Run</span>
+          <span class="status-value">{pipelineData.completed_at ? new Date(pipelineData.completed_at).toLocaleString() : 'N/A'}</span>
+        </div>
+        <div class="status-card">
+          <span class="status-icon">📝</span>
+          <span class="status-label">Decisions</span>
+          <span class="status-value">{decisions.decisions?.length || 0}</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 파이프라인 단계 -->
+    <section class="pipeline-section">
+      <h2>Pipeline Steps</h2>
+      <div class="pipeline-flow">
+        {stepEntries.map(([name, data]) => (
+          <div class:list={["step", data.status]}>
+            <span class="step-name">{name}</span>
+            <span class="step-status">{data.status}</span>
+            {data.count && <span class="step-detail">{data.count} items</span>}
+            {data.error && <span class="step-error">{data.error}</span>}
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- 상위 니치 -->
+    <section class="niches-section">
+      <h2>Top Niches</h2>
+      <table class="niches-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Keyword</th>
+            <th>Score</th>
+            <th>Recommendation</th>
+            <th>Subdomain</th>
+          </tr>
+        </thead>
+        <tbody>
+          {topNiches.map((niche, i) => (
+            <tr>
+              <td>{i + 1}</td>
+              <td>{niche.keyword}</td>
+              <td>
+                <span class:list={["score", {
+                  strong: niche.total_score >= 70,
+                  good: niche.total_score >= 50 && niche.total_score < 70,
+                  moderate: niche.total_score >= 30 && niche.total_score < 50,
+                  weak: niche.total_score < 30,
+                }]}>{niche.total_score}</span>
+              </td>
+              <td>{niche.recommendation}</td>
+              <td><code>{niche.suggested_subdomain}.zxzx.app</code></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 의사결정 로그 -->
+    <section class="decisions-section">
+      <h2>Decision Log</h2>
+      <div class="decisions-list">
+        {decisions.decisions?.map((d) => (
+          <div class="decision-card">
+            <div class="decision-header">
+              <span class="decision-id">{d.id}</span>
+              <span class="decision-date">{d.date}</span>
+              <span class:list={["decision-status", d.outcome]}>{d.outcome}</span>
+            </div>
+            <p class="decision-question">{d.question}</p>
+            <p class="decision-answer"><strong>Decision:</strong> {d.decision}</p>
+            <p class="decision-reason"><strong>Reason:</strong> {d.reason}</p>
+            {d.evidence && <p class="decision-evidence"><strong>Evidence:</strong> {d.evidence}</p>}
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Raw Data Links -->
+    <section class="data-section">
+      <h2>Raw Data</h2>
+      <ul>
+        <li><a href="/data/pipeline_report.json">Pipeline Report</a></li>
+        <li><a href="/data/scored_niches.json">Scored Niches</a></li>
+        <li><a href="/data/google_trends.json">Google Trends</a></li>
+        <li><a href="/data/hn_trends.json">Hacker News</a></li>
+        <li><a href="/data/decisions.json">Decisions</a></li>
+      </ul>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .dashboard {
+    max-width: 1200px;
+  }
+
+  .subtitle {
+    color: var(--color-muted);
+    margin-bottom: 2rem;
+  }
+
+  .status-section {
+    margin-bottom: 3rem;
+  }
+
+  .status-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .status-card {
+    background: #f9fafb;
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .status-icon {
+    font-size: 1.5rem;
+  }
+
+  .status-label {
+    font-size: 0.875rem;
+    color: var(--color-muted);
+  }
+
+  .status-value {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  .pipeline-section {
+    margin-bottom: 3rem;
+  }
+
+  .pipeline-flow {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+
+  .step {
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    min-width: 150px;
+  }
+
+  .step.success {
+    background: #f0fdf4;
+    border-color: #86efac;
+  }
+
+  .step.error {
+    background: #fef2f2;
+    border-color: #fca5a5;
+  }
+
+  .step.skipped {
+    background: #f9fafb;
+    border-color: var(--color-border);
+    opacity: 0.7;
+  }
+
+  .step-name {
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+
+  .step-status {
+    font-size: 0.75rem;
+    color: var(--color-muted);
+  }
+
+  .step-error {
+    font-size: 0.75rem;
+    color: #ef4444;
+  }
+
+  .niches-section {
+    margin-bottom: 3rem;
+  }
+
+  .niches-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+  }
+
+  .niches-table th,
+  .niches-table td {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--color-border);
+    text-align: left;
+  }
+
+  .niches-table th {
+    background: #f9fafb;
+    font-weight: 600;
+  }
+
+  .score {
+    font-weight: 700;
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.25rem;
+  }
+
+  .score.strong { background: #dcfce7; color: #166534; }
+  .score.good { background: #dbeafe; color: #1e40af; }
+  .score.moderate { background: #fef3c7; color: #92400e; }
+  .score.weak { background: #fee2e2; color: #991b1b; }
+
+  .decisions-section {
+    margin-bottom: 3rem;
+  }
+
+  .decisions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .decision-card {
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+  }
+
+  .decision-header {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .decision-id {
+    font-weight: 700;
+    font-family: monospace;
+  }
+
+  .decision-date {
+    color: var(--color-muted);
+    font-size: 0.875rem;
+  }
+
+  .decision-status {
+    font-size: 0.75rem;
+    padding: 0.125rem 0.5rem;
+    border-radius: 1rem;
+  }
+
+  .decision-status.validated { background: #dcfce7; color: #166534; }
+  .decision-status.pending { background: #fef3c7; color: #92400e; }
+  .decision-status.rejected { background: #fee2e2; color: #991b1b; }
+
+  .decision-question {
+    font-style: italic;
+    color: var(--color-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .decision-answer,
+  .decision-reason,
+  .decision-evidence {
+    margin-bottom: 0.25rem;
+    font-size: 0.875rem;
+  }
+
+  .data-section ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .data-section a {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: var(--color-primary);
+    color: white;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    font-size: 0.875rem;
+  }
+</style>
