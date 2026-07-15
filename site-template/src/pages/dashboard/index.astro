@@ -1,71 +1,168 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const title = 'AutoDir Dashboard';
-const description = 'Process tracking and decision log for AutoDir automation pipeline';
+const title = 'AutoDir 대시보드';
+const description = '자동화 파이프라인 프로세스 추적 및 의사결정 로그';
 ---
 
 <BaseLayout title={title} description={description}>
-  <div class="dashboard" id="dashboard">
-    <h1>AutoDir Dashboard</h1>
-    <p class="subtitle">Process tracking & decision log</p>
+  <div id="login-screen">
+    <div class="login-box">
+      <h2>로그인</h2>
+      <p>대시보드에 접근하려면 인증이 필요합니다.</p>
+      <form id="login-form">
+        <input type="text" id="login-id" placeholder="아이디" autocomplete="username" required />
+        <input type="password" id="login-pw" placeholder="비밀번호" autocomplete="current-password" required />
+        <button type="submit">접속</button>
+        <p id="login-error" class="error" style="display:none">아이디 또는 비밀번호가 올바르지 않습니다.</p>
+      </form>
+    </div>
+  </div>
 
-    <section class="status-section">
-      <h2>System Status</h2>
-      <div class="status-grid" id="status-grid">
-        <div class="status-card"><span class="status-label">Loading...</span></div>
-      </div>
+  <div id="dashboard-content" style="display:none">
+    <h1>AutoDir 대시보드</h1>
+    <p class="subtitle">자동화 프로세스 추적 및 의사결정 로그</p>
+
+    <section>
+      <h2>시스템 상태</h2>
+      <div class="status-grid" id="status-grid"></div>
     </section>
 
-    <section class="pipeline-section">
-      <h2>Pipeline Steps</h2>
+    <section>
+      <h2>파이프라인 단계</h2>
       <div class="pipeline-flow" id="pipeline-flow"></div>
     </section>
 
-    <section class="niches-section">
-      <h2>Top Niches</h2>
+    <section>
+      <h2>상위 니치</h2>
       <table class="niches-table" id="niches-table">
-        <thead><tr><th>#</th><th>Keyword</th><th>Score</th><th>Recommendation</th><th>Subdomain</th></tr></thead>
+        <thead><tr><th>#</th><th>키워드</th><th>점수</th><th>추천</th><th>서브도메인</th></tr></thead>
         <tbody></tbody>
       </table>
     </section>
 
-    <section class="decisions-section">
-      <h2>Decision Log</h2>
+    <section>
+      <h2>의사결정 로그</h2>
       <div class="decisions-list" id="decisions-list"></div>
     </section>
   </div>
 
   <script is:inline>
-    async function loadDashboard() {
-      try {
-        const [pRes, nRes, dRes] = await Promise.all([
-          fetch('/data/pipeline_report.json').then(r => r.json()).catch(() => ({steps:{}})),
-          fetch('/data/scored_niches.json').then(r => r.json()).catch(() => ({niches:[]})),
-          fetch('/data/decisions.json').then(r => r.json()).catch(() => ({decisions:[]})),
-        ]);
-        const steps = pRes.steps || {};
-        const entries = Object.entries(steps);
-        const ok = entries.filter(([_, v]) => v.status === 'success').length;
-        document.getElementById('status-grid').innerHTML = [
-          {icon: ok === entries.length ? '✅' : '⚠️', label: 'Pipeline', value: ok + '/' + entries.length + ' steps OK'},
-          {icon: '📊', label: 'Niches Found', value: nRes.total_signals_analyzed || 0},
-          {icon: '🕐', label: 'Last Run', value: pRes.completed_at ? new Date(pRes.completed_at).toLocaleString() : 'N/A'},
-          {icon: '📝', label: 'Decisions', value: (dRes.decisions || []).length},
-        ].map(c => '<div class="status-card"><span class="status-icon">' + c.icon + '</span><span class="status-label">' + c.label + '</span><span class="status-value">' + c.value + '</span></div>').join('');
-        document.getElementById('pipeline-flow').innerHTML = entries.map(([n, d]) => '<div class="step ' + d.status + '"><span class="step-name">' + n + '</span><span class="step-status">' + d.status + '</span>' + (d.count ? '<span class="step-detail">' + d.count + ' items</span>' : '') + '</div>').join('');
-        const niches = (nRes.niches || []).slice(0, 10);
-        document.querySelector('#niches-table tbody').innerHTML = niches.map((n, i) => {
-          var cls = n.total_score >= 70 ? 'strong' : n.total_score >= 50 ? 'good' : n.total_score >= 30 ? 'moderate' : 'weak';
-          return '<tr><td>' + (i+1) + '</td><td>' + n.keyword + '</td><td><span class="score ' + cls + '">' + n.total_score + '</span></td><td>' + n.recommendation + '</td><td><code>' + n.suggested_subdomain + '.zxzx.app</code></td></tr>';
-        }).join('');
-        document.getElementById('decisions-list').innerHTML = (dRes.decisions || []).map(d => '<div class="decision-card"><div class="decision-header"><span class="decision-id">' + d.id + '</span><span class="decision-date">' + d.date + '</span><span class="decision-status ' + d.outcome + '">' + d.outcome + '</span></div><p class="decision-question">' + d.question + '</p><p><strong>Decision:</strong> ' + d.decision + '</p><p><strong>Reason:</strong> ' + d.reason + '</p></div>').join('');
-      } catch(e) { console.error('Dashboard error:', e); }
-    }
-    loadDashboard();
+    (function() {
+      var HASH = '77f418ffdc5c7cad983bc931fb42d644ad5aacb96da59d9b63dd3f3dd20c3bf5';
+      var ID = 'parkyo0204';
+
+      if (sessionStorage.getItem('autodir_auth') === '1') {
+        showDashboard();
+      }
+
+      document.getElementById('login-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var inputId = document.getElementById('login-id').value;
+        var inputPw = document.getElementById('login-pw').value;
+        var enc = new TextEncoder();
+        var hashBuf = await crypto.subtle.digest('SHA-256', enc.encode(inputPw));
+        var hashHex = Array.from(new Uint8Array(hashBuf)).map(function(b) { return b.toString(16).padStart(2, '0'); }).join('');
+        if (inputId === ID && hashHex === HASH) {
+          sessionStorage.setItem('autodir_auth', '1');
+          showDashboard();
+        } else {
+          document.getElementById('login-error').style.display = 'block';
+        }
+      });
+
+      function showDashboard() {
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('dashboard-content').style.display = 'block';
+        loadDashboard();
+      }
+
+      async function loadDashboard() {
+        try {
+          var pRes = await fetch('/data/pipeline_report.json').then(function(r) { return r.json(); }).catch(function() { return {steps:{}}; });
+          var nRes = await fetch('/data/scored_niches.json').then(function(r) { return r.json(); }).catch(function() { return {niches:[]}; });
+          var dRes = await fetch('/data/decisions.json').then(function(r) { return r.json(); }).catch(function() { return {decisions:[]}; });
+
+          var steps = pRes.steps || {};
+          var entries = Object.entries(steps);
+          var ok = entries.filter(function(e) { return e[1].status === 'success'; }).length;
+
+          var statusMap = {
+            'trends': '트렌드 수집',
+            'reddit': 'Reddit 수집',
+            'hn': 'HN 수집',
+            'scoring': '니치 스코어링'
+          };
+          var statusLabels = {
+            'success': '성공',
+            'error': '실패',
+            'skipped': '건너뜀'
+          };
+
+          document.getElementById('status-grid').innerHTML = [
+            {icon: ok === entries.length ? '✅' : '⚠️', label: '파이프라인', value: ok + '/' + entries.length + ' 단계 완료'},
+            {icon: '📊', label: '발견된 니치', value: (nRes.total_signals_analyzed || 0) + '개'},
+            {icon: '🕐', label: '마지막 실행', value: pRes.completed_at ? new Date(pRes.completed_at).toLocaleString('ko-KR') : '없음'},
+            {icon: '📝', label: '의사결정', value: (dRes.decisions || []).length + '건'},
+          ].map(function(c) {
+            return '<div class="status-card"><span class="status-icon">' + c.icon + '</span><span class="status-label">' + c.label + '</span><span class="status-value">' + c.value + '</span></div>';
+          }).join('');
+
+          document.getElementById('pipeline-flow').innerHTML = entries.map(function(e) {
+            var name = statusMap[e[0]] || e[0];
+            var status = statusLabels[e[1].status] || e[1].status;
+            return '<div class="step ' + e[1].status + '"><span class="step-name">' + name + '</span><span class="step-status">' + status + '</span>' + (e[1].count ? '<span class="step-detail">' + e[1].count + '건</span>' : '') + '</div>';
+          }).join('');
+
+          var niches = (nRes.niches || []).slice(0, 10);
+          var recMap = {'STRONG': '강력 추천', 'GOOD': '추천', 'MODERATE': '보통', 'WEAK': '약함'};
+          document.querySelector('#niches-table tbody').innerHTML = niches.map(function(n, i) {
+            var cls = n.total_score >= 70 ? 'strong' : n.total_score >= 50 ? 'good' : n.total_score >= 30 ? 'moderate' : 'weak';
+            var rec = n.recommendation || '';
+            Object.keys(recMap).forEach(function(k) { rec = rec.replace(k, recMap[k]); });
+            return '<tr><td>' + (i+1) + '</td><td>' + n.keyword + '</td><td><span class="score ' + cls + '">' + n.total_score + '</span></td><td>' + rec + '</td><td><code>' + n.suggested_subdomain + '.zxzx.app</code></td></tr>';
+          }).join('');
+
+          var outMap = {'validated': '검증됨', 'pending': '대기중', 'rejected': '거부됨'};
+          document.getElementById('decisions-list').innerHTML = (dRes.decisions || []).map(function(d) {
+            return '<div class="decision-card"><div class="decision-header"><span class="decision-id">' + d.id + '</span><span class="decision-date">' + d.date + '</span><span class="decision-status ' + d.outcome + '">' + (outMap[d.outcome] || d.outcome) + '</span></div><p class="decision-question">' + d.question + '</p><p><strong>결정:</strong> ' + d.decision + '</p><p><strong>근거:</strong> ' + d.reason + '</p></div>';
+          }).join('');
+
+        } catch(e) { console.error('대시보드 로드 오류:', e); }
+      }
+    })();
   </script>
 </BaseLayout>
 
 <style>
-  .dashboard{max-width:1200px}.subtitle{color:var(--color-muted);margin-bottom:2rem}.status-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:1rem}.status-card{background:#f9fafb;border:1px solid var(--color-border);border-radius:.75rem;padding:1.25rem;display:flex;flex-direction:column;gap:.5rem}.status-icon{font-size:1.5rem}.status-label{font-size:.875rem;color:var(--color-muted)}.status-value{font-size:1.25rem;font-weight:600}.pipeline-section,.niches-section,.decisions-section{margin:2rem 0}.pipeline-flow{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem}.step{padding:.75rem 1rem;border-radius:.5rem;border:1px solid var(--color-border);display:flex;flex-direction:column;gap:.25rem;min-width:150px}.step.success{background:#f0fdf4;border-color:#86efac}.step.error{background:#fef2f2;border-color:#fca5a5}.step.skipped{background:#f9fafb;opacity:.7}.step-name{font-weight:600;text-transform:capitalize}.step-status{font-size:.75rem;color:var(--color-muted)}.step-error{font-size:.75rem;color:#ef4444}.niches-table{width:100%;border-collapse:collapse;margin-top:1rem}.niches-table th,.niches-table td{padding:.75rem 1rem;border:1px solid var(--color-border);text-align:left}.niches-table th{background:#f9fafb;font-weight:600}.score{font-weight:700;padding:.125rem .5rem;border-radius:.25rem}.score.strong{background:#dcfce7;color:#166534}.score.good{background:#dbeafe;color:#1e40af}.score.moderate{background:#fef3c7;color:#92400e}.score.weak{background:#fee2e2;color:#991b1b}.decisions-list{display:flex;flex-direction:column;gap:1rem;margin-top:1rem}.decision-card{border:1px solid var(--color-border);border-radius:.75rem;padding:1.25rem}.decision-header{display:flex;gap:.75rem;align-items:center;margin-bottom:.75rem}.decision-id{font-weight:700;font-family:monospace}.decision-date{color:var(--color-muted);font-size:.875rem}.decision-status{font-size:.75rem;padding:.125rem .5rem;border-radius:1rem}.decision-status.validated{background:#dcfce7;color:#166534}.decision-status.pending{background:#fef3c7;color:#92400e}.decision-question{font-style:italic;color:var(--color-muted);margin-bottom:.5rem}
+  #login-screen{display:flex;justify-content:center;align-items:center;min-height:60vh}
+  .login-box{background:#f9fafb;border:1px solid var(--color-border);border-radius:1rem;padding:2.5rem;width:100%;max-width:400px;text-align:center}
+  .login-box h2{margin-bottom:.5rem}.login-box p{color:var(--color-muted);margin-bottom:1.5rem;font-size:.875rem}
+  .login-box input{width:100%;padding:.75rem;margin-bottom:.75rem;border:1px solid var(--color-border);border-radius:.5rem;font-size:1rem}
+  .login-box input:focus{outline:none;border-color:var(--color-primary);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+  .login-box button{width:100%;padding:.75rem;background:var(--color-primary);color:white;border:none;border-radius:.5rem;font-size:1rem;cursor:pointer;font-weight:600}
+  .login-box button:hover{opacity:.9}
+  .error{color:#ef4444;font-size:.875rem;margin-top:.5rem}
+  .subtitle{color:var(--color-muted);margin-bottom:2rem}
+  .status-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:1rem 0 2rem}
+  .status-card{background:#f9fafb;border:1px solid var(--color-border);border-radius:.75rem;padding:1.25rem;display:flex;flex-direction:column;gap:.5rem}
+  .status-icon{font-size:1.5rem}.status-label{font-size:.875rem;color:var(--color-muted)}.status-value{font-size:1.25rem;font-weight:600}
+  section{margin-bottom:2.5rem}
+  .pipeline-flow{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem}
+  .step{padding:.75rem 1rem;border-radius:.5rem;border:1px solid var(--color-border);display:flex;flex-direction:column;gap:.25rem;min-width:140px}
+  .step.success{background:#f0fdf4;border-color:#86efac}.step.error{background:#fef2f2;border-color:#fca5a5}.step.skipped{background:#f9fafb;opacity:.7}
+  .step-name{font-weight:600}.step-status{font-size:.75rem;color:var(--color-muted)}.step-detail{font-size:.75rem;color:var(--color-muted)}
+  .niches-table{width:100%;border-collapse:collapse;margin-top:1rem}
+  .niches-table th,.niches-table td{padding:.75rem 1rem;border:1px solid var(--color-border);text-align:left}
+  .niches-table th{background:#f9fafb;font-weight:600}
+  .score{font-weight:700;padding:.125rem .5rem;border-radius:.25rem}
+  .score.strong{background:#dcfce7;color:#166534}.score.good{background:#dbeafe;color:#1e40af}
+  .score.moderate{background:#fef3c7;color:#92400e}.score.weak{background:#fee2e2;color:#991b1b}
+  .decisions-list{display:flex;flex-direction:column;gap:1rem;margin-top:1rem}
+  .decision-card{border:1px solid var(--color-border);border-radius:.75rem;padding:1.25rem}
+  .decision-header{display:flex;gap:.75rem;align-items:center;margin-bottom:.75rem}
+  .decision-id{font-weight:700;font-family:monospace}.decision-date{color:var(--color-muted);font-size:.875rem}
+  .decision-status{font-size:.75rem;padding:.125rem .5rem;border-radius:1rem}
+  .decision-status.validated{background:#dcfce7;color:#166534}.decision-status.pending{background:#fef3c7;color:#92400e}
+  .decision-question{font-style:italic;color:var(--color-muted);margin-bottom:.5rem}
 </style>
