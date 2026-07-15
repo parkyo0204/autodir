@@ -1,6 +1,6 @@
 {
   "started_at": "2026-07-15T06:00:00Z",
-  "completed_at": "2026-07-16T20:00:00Z",
+  "completed_at": "2026-07-16T21:00:00Z",
   "steps": {
     "trends": {
       "status": "success",
@@ -70,6 +70,14 @@
     "quality_plan_abc": {
       "status": "success",
       "description": "i18n integrity + blog lead i18n + trust/AdSense prep (no slots)"
+    },
+    "wait_hardening": {
+      "status": "success",
+      "description": "AdSense wait window: content depth + trust + GitHub smoke"
+    },
+    "gsc": {
+      "status": "success",
+      "description": "Human: sc-domain property, sitemap 34, home indexed"
     }
   },
   "automation": {
