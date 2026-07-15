@@ -1,0 +1,26 @@
+# AI Marketing Tools Directory
+
+> A curated directory of the best AI-powered marketing tools for automation, analytics, content creation, and campaign optimization.
+
+## Categories
+
+### Content Creation
+- Jasper AI: AI content creation platform for marketing teams
+- Copy.ai: AI copywriting tool for marketing copy
+
+### Marketing Automation
+- HubSpot Marketing Hub: All-in-one marketing platform with AI-powered features
+
+### SEO
+- Surfer SEO: AI-powered content optimization tool
+
+### Advertising
+- AdCreative.ai: AI-powered ad creative generation
+
+## Comparisons
+- Jasper AI vs Copy.ai
+- HubSpot vs Mailchimp
+- Surfer SEO vs Clearscope
+
+## About
+This directory is automatically curated and updated. All data is verified and sourced from official websites and user reviews.

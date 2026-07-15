@@ -1,0 +1,153 @@
+---
+export interface Props {
+  item: {
+    name: string;
+    description?: string;
+    rating?: number;
+    reviews?: number;
+    website?: string;
+    address?: string;
+    phone?: string;
+    category?: string;
+    image?: string;
+    affiliate_link?: string;
+    featured?: boolean;
+  };
+}
+
+const { item } = Astro.props;
+
+// Schema Markup for individual item
+const schemaData = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": item.name,
+  "description": item.description,
+  "address": item.address,
+  "telephone": item.phone,
+  "url": item.website,
+  "aggregateRating": item.rating ? {
+    "@type": "AggregateRating",
+    "ratingValue": item.rating,
+    "reviewCount": item.reviews || 0
+  } : undefined
+};
+---
+
+<article class:list={["card", { featured: item.featured }]}>
+  <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+
+  <div class="card-header">
+    <h3>{item.name}</h3>
+    {item.featured && <span class="badge">Featured</span>}
+  </div>
+
+  {item.description && <p class="description">{item.description}</p>}
+
+  <div class="meta">
+    {item.rating && (
+      <span class="rating">
+        {'★'.repeat(Math.round(item.rating))}{'☆'.repeat(5 - Math.round(item.rating))}
+        {item.rating} ({item.reviews || 0} reviews)
+      </span>
+    )}
+    {item.category && <span class="category">{item.category}</span>}
+  </div>
+
+  <div class="actions">
+    {item.website && (
+      <a href={item.affiliate_link || item.website} class="btn-primary" target="_blank" rel="noopener">
+        Visit Website
+      </a>
+    )}
+    {item.address && <span class="address">{item.address}</span>}
+  </div>
+</article>
+
+<style>
+  .card {
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    transition: box-shadow 0.2s;
+  }
+
+  .card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .card.featured {
+    border-color: var(--color-primary);
+    background: #eff6ff;
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .card-header h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  .badge {
+    background: var(--color-primary);
+    color: white;
+    padding: 0.125rem 0.5rem;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+  }
+
+  .description {
+    color: var(--color-muted);
+    margin-bottom: 0.75rem;
+    font-size: 0.875rem;
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+  }
+
+  .rating {
+    color: #f59e0b;
+  }
+
+  .category {
+    background: #f3f4f6;
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.25rem;
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: var(--color-primary);
+    color: white;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    font-size: 0.875rem;
+    text-align: center;
+  }
+
+  .btn-primary:hover {
+    opacity: 0.9;
+  }
+
+  .address {
+    color: var(--color-muted);
+    font-size: 0.75rem;
+  }
+</style>

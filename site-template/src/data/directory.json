@@ -1,0 +1,80 @@
+{
+  "niche": "AI Marketing Tools",
+  "description": "Discover the best AI-powered marketing tools for automation, analytics, content creation, and campaign optimization.",
+  "items": [
+    {
+      "name": "Jasper AI",
+      "description": "AI content creation platform for marketing teams. Generates blog posts, social media content, and ad copy.",
+      "rating": 4.7,
+      "reviews": 1250,
+      "website": "https://jasper.ai",
+      "category": "Content Creation",
+      "affiliate_link": "",
+      "featured": true
+    },
+    {
+      "name": "HubSpot Marketing Hub",
+      "description": "All-in-one marketing platform with AI-powered email, social media, and campaign management.",
+      "rating": 4.5,
+      "reviews": 3200,
+      "website": "https://hubspot.com",
+      "category": "Marketing Automation",
+      "featured": true
+    },
+    {
+      "name": "Surfer SEO",
+      "description": "AI-powered content optimization tool that helps you rank higher in search results.",
+      "rating": 4.6,
+      "reviews": 890,
+      "website": "https://surferseo.com",
+      "category": "SEO",
+      "featured": false
+    },
+    {
+      "name": "Copy.ai",
+      "description": "AI copywriting tool for marketing copy, product descriptions, and social media posts.",
+      "rating": 4.4,
+      "reviews": 1100,
+      "website": "https://copy.ai",
+      "category": "Content Creation",
+      "featured": false
+    },
+    {
+      "name": "AdCreative.ai",
+      "description": "AI-powered ad creative generation for Google, Facebook, and Instagram ads.",
+      "rating": 4.3,
+      "reviews": 650,
+      "website": "https://adcreative.ai",
+      "category": "Advertising",
+      "featured": false
+    }
+  ],
+  "faq": [
+    {
+      "question": "What are the best AI marketing tools for small businesses?",
+      "answer": "For small businesses, we recommend starting with Jasper AI for content creation, HubSpot for marketing automation, and Surfer SEO for search optimization. These tools offer free tiers or affordable plans."
+    },
+    {
+      "question": "How much do AI marketing tools cost?",
+      "answer": "Most AI marketing tools range from $29-$299/month depending on features and usage. Many offer free trials or limited free plans to get started."
+    },
+    {
+      "question": "Can AI marketing tools replace human marketers?",
+      "answer": "AI marketing tools augment human capabilities rather than replace them. They handle repetitive tasks like content generation, A/B testing, and data analysis, freeing marketers to focus on strategy and creativity."
+    }
+  ],
+  "comparisons": [
+    {
+      "slug": "jasper-vs-copy-ai",
+      "title": "Jasper AI vs Copy.ai"
+    },
+    {
+      "slug": "hubspot-vs-mailchimp",
+      "title": "HubSpot vs Mailchimp"
+    },
+    {
+      "slug": "surfer-seo-vs-clearscope",
+      "title": "Surfer SEO vs Clearscope"
+    }
+  ]
+}

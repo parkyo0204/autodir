@@ -1,0 +1,1396 @@
+{
+  "stories": [
+    {
+      "id": 48915709,
+      "title": "Jurassic Park computers in excruciating detail",
+      "url": "https://fabiensanglard.net/jurrasic_park_computers/index.html",
+      "score": 246,
+      "comments": 59,
+      "by": "vinhnx",
+      "time": 1784084267,
+      "niche_signals": [
+        {
+          "keyword": "AI",
+          "type": "category",
+          "confidence": 0.5
+        }
+      ],
+      "collected_at": "2026-07-15T06:35:50.710992+00:00"
+    },
+    {
+      "id": 48914644,
+      "title": "Vancouver PD website features Quick Escape button that wipes itself from history",
+      "url": "https://vpd.ca/",
+      "score": 222,
+      "comments": 85,
+      "by": "LookAtThatBacon",
+      "time": 1784074553,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:35:51.431785+00:00"
+    },
+    {
+      "id": 48915004,
+      "title": "TS-2026-009: Insecure argument handling in Tailscale SSH permitted root access",
+      "url": "https://tailscale.com/security-bulletins",
+      "score": 112,
+      "comments": 47,
+      "by": "jervant",
+      "time": 1784077706,
+      "niche_signals": [
+        {
+          "keyword": "AI",
+          "type": "category",
+          "confidence": 0.5
+        }
+      ],
+      "collected_at": "2026-07-15T06:35:52.157507+00:00"
+    },
+    {
+      "id": 48910545,
+      "title": "Bonsai 27B: A 27B-Class model that runs on a phone",
+      "url": "https://prismml.com/news/bonsai-27b",
+      "score": 531,
+      "comments": 187,
+      "by": "xenova",
+      "time": 1784051448,
+      "niche_signals": [
+        {
+          "keyword": "AI",
+          "type": "category",
+          "confidence": 0.5
+        }
+      ],
+      "collected_at": "2026-07-15T06:35:52.848869+00:00"
+    },
+    {
+      "id": 48875188,
+      "title": "Andon (manufacturing)",
+      "url": "https://en.wikipedia.org/wiki/Andon_(manufacturing)",
+      "score": 25,
+      "comments": 1,
+      "by": "tony",
+      "time": 1783799347,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:35:53.559339+00:00"
+    },
+    {
+      "id": 48913050,
+      "title": "Dependabot version updates introduce default package cooldown",
+      "url": "https://github.blog/changelog/2026-07-14-dependabot-version-updates-introduce-default-package-cooldown/",
+      "score": 156,
+      "comments": 89,
+      "by": "woodruffw",
+      "time": 1784063751,
+      "niche_signals": [
+        {
+          "keyword": "Automation",
+          "type": "category",
+          "confidence": 0.5
+        }
+      ],
+      "collected_at": "2026-07-15T06:35:54.135239+00:00"
+    },
+    {
+      "id": 48909785,
+      "title": "The Tower Keeps Rising",
+      "url": "https://lucumr.pocoo.org/2026/7/13/the-tower-keeps-rising/",
+      "score": 432,
+      "comments": 203,
+      "by": "cdrnsf",
+      "time": 1784048274,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:35:54.828996+00:00"
+    },
+    {
+      "id": 48910676,
+      "title": "Cursor 0day: When Full Disclosure Becomes the Only Protection Left",
+      "url": "https://mindgard.ai/blog/cursor-0day-when-full-disclosure-becomes-the-only-protection-left",
+      "score": 316,
+      "comments": 155,
+      "by": "Synthetic7346",
+      "time": 1784051915,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:35:55.519724+00:00"
+    },
+    {
+      "id": 48914646,
+      "title": "Solving 20 Erdős Problems with 20 Codex Accounts Running in Parallel",
+      "url": "https://www.starfleetmath.com/",
+      "score": 105,
+      "comments": 46,
+      "by": "colin7snyder",
+      "time": 1784074556,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:35:56.216624+00:00"
+    },
+    {
+      "id": 48912175,
+      "title": "How I use HTMX with Go",
+      "url": "https://www.alexedwards.net/blog/how-i-use-htmx-with-go",
+      "score": 191,
+      "comments": 43,
+      "by": "gnabgib",
+      "time": 1784058931,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:35:56.913025+00:00"
+    },
+    {
+      "id": 48913443,
+      "title": "Financing the AI boom: from cash flows to debt [pdf]",
+      "url": "https://www.bis.org/publ/bisbull120.pdf",
+      "score": 139,
+      "comments": 81,
+      "by": "1vuio0pswjnm7",
+      "time": 1784066316,
+      "niche_signals": [
+        {
+          "keyword": "AI",
+          "type": "category",
+          "confidence": 0.5
+        }
+      ],
+      "collected_at": "2026-07-15T06:35:57.490409+00:00"
+    },
+    {
+      "id": 48913190,
+      "title": "Microsoft Patches a Record 570 Security Flaws",
+      "url": "https://krebsonsecurity.com/2026/07/microsoft-patches-a-record-570-security-flaws/",
+      "score": 92,
+      "comments": 42,
+      "by": "robin_reala",
+      "time": 1784064742,
+      "niche_signals": [
+        {
+          "keyword": "Security",
+          "type": "category",
+          "confidence": 0.5
+        }
+      ],
+      "collected_at": "2026-07-15T06:35:58.212237+00:00"
+    },
+    {
+      "id": 48905248,
+      "title": "How to stop Claude from saying load-bearing",
+      "url": "https://jola.dev/posts/how-to-stop-claude-from-saying-load-bearing",
+      "score": 498,
+      "comments": 534,
+      "by": "shintoist",
+      "time": 1784029562,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:35:58.906936+00:00"
+    },
+    {
+      "id": 48896672,
+      "title": "The bread paradox: why convenience always wins, and why SaaS isn't doomed",
+      "url": "https://www.joanwestenberg.com/p/the-bread-paradox-why-convenience",
+      "score": 43,
+      "comments": 31,
+      "by": "srijan4",
+      "time": 1783966992,
+      "niche_signals": [
+        {
+          "keyword": "SaaS",
+          "type": "category",
+          "confidence": 0.5
+        }
+      ],
+      "collected_at": "2026-07-15T06:35:59.605072+00:00"
+    },
+    {
+      "id": 48908214,
+      "title": "I'm a USB-C Maximalist",
+      "url": "https://shkspr.mobi/blog/2026/07/im-a-usb-c-maximalist/",
+      "score": 238,
+      "comments": 335,
+      "by": "speckx",
+      "time": 1784042436,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:00.178091+00:00"
+    },
+    {
+      "id": 48914683,
+      "title": "Data centers have hiked electricity prices on the public by $23B",
+      "url": "https://fortune.com/2026/07/14/data-centers-23-billion-electricity-bills/",
+      "score": 163,
+      "comments": 98,
+      "by": "measurablefunc",
+      "time": 1784074831,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:00.747697+00:00"
+    },
+    {
+      "id": 48905183,
+      "title": "Mathematical texts from a Maya site in Guatemala identify an ancient astronomer",
+      "url": "https://www.nature.com/articles/d41586-026-02170-8",
+      "score": 68,
+      "comments": 18,
+      "by": "homarp",
+      "time": 1784029234,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:01.444927+00:00"
+    },
+    {
+      "id": 48916375,
+      "title": "LinkedIn is a cesspool of scammers and identity theft",
+      "url": "",
+      "score": 23,
+      "comments": 9,
+      "by": "lbpdev",
+      "time": 1784090699,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:02.147775+00:00"
+    },
+    {
+      "id": 48872401,
+      "title": "The largest available Minecraft world, totalling 15 TB",
+      "url": "https://2b2t.place/1million",
+      "score": 197,
+      "comments": 69,
+      "by": "_____k",
+      "time": 1783780339,
+      "niche_signals": [
+        {
+          "keyword": "AI",
+          "type": "category",
+          "confidence": 0.5
+        }
+      ],
+      "collected_at": "2026-07-15T06:36:02.722569+00:00"
+    },
+    {
+      "id": 48870217,
+      "title": "The kids with phones are alright",
+      "url": "https://heatherburns.tech/2026/07/08/the-kids-with-phones-are-alright/",
+      "score": 180,
+      "comments": 140,
+      "by": "JumpCrisscross",
+      "time": 1783760888,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:03.286637+00:00"
+    },
+    {
+      "id": 48862351,
+      "title": "An unusual way for your DHCP server to run out of dynamic IPs",
+      "url": "https://utcc.utoronto.ca/~cks/space/blog/sysadmin/DHCPServerAndScreamingHost",
+      "score": 56,
+      "comments": 12,
+      "by": "speckx",
+      "time": 1783702031,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:03.991282+00:00"
+    },
+    {
+      "id": 48913763,
+      "title": "LeMario: Training a JEPA World Model on Super Mario Bros",
+      "url": "https://www.benjamin-bai.com/projects/lemario",
+      "score": 77,
+      "comments": 11,
+      "by": "kevinjosethomas",
+      "time": 1784068247,
+      "niche_signals": [
+        {
+          "keyword": "AI",
+          "type": "category",
+          "confidence": 0.5
+        }
+      ],
+      "collected_at": "2026-07-15T06:36:04.567225+00:00"
+    },
+    {
+      "id": 48882608,
+      "title": "The Trade in Looted Antiquities Endures for One Reason: Demand",
+      "url": "https://news.artnet.com/art-world/matt-campbell-cambodia-looted-antiquities-2779870",
+      "score": 12,
+      "comments": 4,
+      "by": "derbOac",
+      "time": 1783875629,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:05.144637+00:00"
+    },
+    {
+      "id": 48913457,
+      "title": "Probably check on your smart appliances",
+      "url": "https://xeiaso.net/notes/2026/check-your-smart-tv/",
+      "score": 56,
+      "comments": 20,
+      "by": "xena",
+      "time": 1784066441,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:05.720575+00:00"
+    },
+    {
+      "id": 48865001,
+      "title": "The zero-cost fallacy: open-source software in the agentic era",
+      "url": "https://www.thoughtworks.com/insights/blog/open-source/zero-cost-fallacy-open-source-agentic-era",
+      "score": 140,
+      "comments": 108,
+      "by": "backlit4034",
+      "time": 1783716343,
+      "niche_signals": [
+        {
+          "keyword": "SaaS",
+          "type": "category",
+          "confidence": 0.5
+        }
+      ],
+      "collected_at": "2026-07-15T06:36:06.295894+00:00"
+    },
+    {
+      "id": 48883305,
+      "title": "Show HN: Juggler – an open-source GUI coding agent, by the creator of JUCE",
+      "url": "https://github.com/juggler-ai/juggler",
+      "score": 213,
+      "comments": 92,
+      "by": "julesrms",
+      "time": 1783880895,
+      "niche_signals": [
+        {
+          "keyword": "Juggler",
+          "type": "product",
+          "confidence": 0.9
+        }
+      ],
+      "collected_at": "2026-07-15T06:36:06.994655+00:00"
+    },
+    {
+      "id": 48899473,
+      "title": "The Estranged Worlds of J. G. Ballard",
+      "url": "https://lareviewofbooks.org/article/jg-ballard-illuminated-man-christopher-priest-nina-allan/",
+      "score": 52,
+      "comments": 10,
+      "by": "Caiero",
+      "time": 1783979876,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:07.563108+00:00"
+    },
+    {
+      "id": 48908178,
+      "title": "Are we offloading too much of our thinking to AI?",
+      "url": "https://www.artfish.ai/p/offloading-thinking-to-ai",
+      "score": 436,
+      "comments": 411,
+      "by": "yenniejun111",
+      "time": 1784042293,
+      "niche_signals": [
+        {
+          "keyword": "AI",
+          "type": "category",
+          "confidence": 0.5
+        }
+      ],
+      "collected_at": "2026-07-15T06:36:08.143288+00:00"
+    },
+    {
+      "id": 48869989,
+      "title": "Your 'app' could have been a webpage (so I fixed it for you)",
+      "url": "https://danq.me/2026/07/09/your-app-could-have-been-a-webpage/",
+      "score": 774,
+      "comments": 472,
+      "by": "MrVandemar",
+      "time": 1783758087,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:08.718676+00:00"
+    },
+    {
+      "id": 48906041,
+      "title": "Guardian Angels: LLM Personalization for Productivity and Security",
+      "url": "https://gwern.net/guardian-angel",
+      "score": 80,
+      "comments": 13,
+      "by": "andsoitis",
+      "time": 1784033429,
+      "niche_signals": [
+        {
+          "keyword": "AI",
+          "type": "category",
+          "confidence": 0.5
+        },
+        {
+          "keyword": "Security",
+          "type": "category",
+          "confidence": 0.5
+        }
+      ],
+      "collected_at": "2026-07-15T06:36:09.435832+00:00"
+    },
+    {
+      "id": 48908271,
+      "title": "Show HN: Opening lines of famous literary works",
+      "url": "https://www.verbaprima.com/",
+      "score": 161,
+      "comments": 90,
+      "by": "plicerin",
+      "time": 1784042689,
+      "niche_signals": [
+        {
+          "keyword": "Opening lines of famous literary works",
+          "type": "product",
+          "confidence": 0.9
+        }
+      ],
+      "collected_at": "2026-07-15T06:36:10.148939+00:00"
+    },
+    {
+      "id": 48905118,
+      "title": "Punch yourself in the face with reality",
+      "url": "https://adi.bio/reality",
+      "score": 219,
+      "comments": 106,
+      "by": "AdityaAnand1",
+      "time": 1784028799,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:11.425885+00:00"
+    },
+    {
+      "id": 48866848,
+      "title": "Unlocking the PSP's Dual Core Setup",
+      "url": "https://wololo.net/2026/06/16/unlocking-the-psps-dual-core-setup/",
+      "score": 54,
+      "comments": 4,
+      "by": "msephton",
+      "time": 1783727497,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:12.301574+00:00"
+    },
+    {
+      "id": 48854431,
+      "title": "Ambient Website Background Clouds",
+      "url": "https://github.com/paradise-runner/background-clouds",
+      "score": 16,
+      "comments": 4,
+      "by": "dividedcomet",
+      "time": 1783644609,
+      "niche_signals": [
+        {
+          "keyword": "Hosting",
+          "type": "category",
+          "confidence": 0.5
+        }
+      ],
+      "collected_at": "2026-07-15T06:36:13.003864+00:00"
+    },
+    {
+      "id": 48903777,
+      "title": "European \"age verification\" \"app\" forcing everyone to use Android or iOS",
+      "url": "https://github.com/eu-digital-identity-wallet/av-doc-technical-specification/discussions/19",
+      "score": 508,
+      "comments": 351,
+      "by": "roundabout-host",
+      "time": 1784018097,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:13.703131+00:00"
+    },
+    {
+      "id": 48908950,
+      "title": "Launch HN: Agnost AI (YC S26) – Extract user feedback from agent conversations",
+      "url": "https://agnost.ai",
+      "score": 47,
+      "comments": 37,
+      "by": "laalshaitaan",
+      "time": 1784045178,
+      "niche_signals": [
+        {
+          "keyword": "AI",
+          "type": "category",
+          "confidence": 0.5
+        },
+        {
+          "keyword": "Database",
+          "type": "category",
+          "confidence": 0.5
+        }
+      ],
+      "collected_at": "2026-07-15T06:36:14.405140+00:00"
+    },
+    {
+      "id": 48902320,
+      "title": "Australian energy retailers must offer three hours of free daytime electricity",
+      "url": "https://lenergy.com.au/free-daytime-electricity-is-coming-heres-how-it-actually-works/",
+      "score": 272,
+      "comments": 364,
+      "by": "i2oc",
+      "time": 1784003508,
+      "niche_signals": [
+        {
+          "keyword": "AI",
+          "type": "category",
+          "confidence": 0.5
+        }
+      ],
+      "collected_at": "2026-07-15T06:36:15.110417+00:00"
+    },
+    {
+      "id": 48909424,
+      "title": "Measuring Input Latency on Linux: X11 vs. Wayland, VRR, and DXVK",
+      "url": "https://marco-nett.de/blog/measuring-input-latency-on-linux-x11-vs-wayland-vrr-dxvk/",
+      "score": 364,
+      "comments": 237,
+      "by": "hoechst",
+      "time": 1784046966,
+      "niche_signals": [
+        {
+          "keyword": "X11 vs Wayland",
+          "type": "comparison",
+          "confidence": 0.85
+        }
+      ],
+      "collected_at": "2026-07-15T06:36:15.833564+00:00"
+    },
+    {
+      "id": 48907290,
+      "title": "Agnes Callard’s theory of the uni-context",
+      "url": "https://www.derekthompson.org/p/a-philosophers-one-word-theory-to",
+      "score": 94,
+      "comments": 95,
+      "by": "FinnLobsien",
+      "time": 1784038659,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:16.402420+00:00"
+    },
+    {
+      "id": 48907672,
+      "title": "The Agentic Loop: Three loops in a trench coat",
+      "url": "https://www.bobbytables.io/p/the-agentic-loop-three-loops-in-a",
+      "score": 78,
+      "comments": 22,
+      "by": "btables",
+      "time": 1784039996,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:17.218931+00:00"
+    },
+    {
+      "id": 48904095,
+      "title": "Demis Hassabis has a plan to harness AI safely",
+      "url": "https://twitter.com/demishassabis/status/2076957440109625718",
+      "score": 141,
+      "comments": 192,
+      "by": "asiergoni",
+      "time": 1784020807,
+      "niche_signals": [
+        {
+          "keyword": "AI",
+          "type": "category",
+          "confidence": 0.5
+        }
+      ],
+      "collected_at": "2026-07-15T06:36:17.914027+00:00"
+    },
+    {
+      "id": 48913162,
+      "title": "Cyberstalkers Are Exploiting Chrome Sync to Spy on Victims",
+      "url": "https://www.certosoftware.com/insights/cyberstalkers-exploiting-chrome-sync-to-spy/",
+      "score": 17,
+      "comments": 0,
+      "by": "hn_acker",
+      "time": 1784064546,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:18.503636+00:00"
+    },
+    {
+      "id": 48876809,
+      "title": "How the FSF sysadmins block botnets with reaction",
+      "url": "https://www.fsf.org/blogs/community/blocking-botnets-with-reaction",
+      "score": 159,
+      "comments": 68,
+      "by": "pseudolus",
+      "time": 1783812372,
+      "niche_signals": [
+        {
+          "keyword": "Automation",
+          "type": "category",
+          "confidence": 0.5
+        }
+      ],
+      "collected_at": "2026-07-15T06:36:19.080437+00:00"
+    },
+    {
+      "id": 48916455,
+      "title": "Marco Rubio launches campaign to dismantle international criminal court",
+      "url": "https://www.theguardian.com/us-news/2026/jul/13/marco-rubio-dismantle-international-criminal-court",
+      "score": 10,
+      "comments": 1,
+      "by": "colinprince",
+      "time": 1784091589,
+      "niche_signals": [
+        {
+          "keyword": "AI",
+          "type": "category",
+          "confidence": 0.5
+        }
+      ],
+      "collected_at": "2026-07-15T06:36:19.654761+00:00"
+    },
+    {
+      "id": 48905919,
+      "title": "Show HN: I RL-trained an agent that trains models with RL (for ~$1.3k)",
+      "url": "https://github.com/Danau5tin/ai-trains-ai",
+      "score": 101,
+      "comments": 43,
+      "by": "Danau5tin",
+      "time": 1784032885,
+      "niche_signals": [
+        {
+          "keyword": "I RL",
+          "type": "product",
+          "confidence": 0.9
+        },
+        {
+          "keyword": "AI",
+          "type": "category",
+          "confidence": 0.5
+        }
+      ],
+      "collected_at": "2026-07-15T06:36:20.224630+00:00"
+    },
+    {
+      "id": 48911803,
+      "title": "I also filed the corners off my MacBook",
+      "url": "https://www.brt.fyi/posts/mac-book-filing/",
+      "score": 40,
+      "comments": 9,
+      "by": "maxbrt",
+      "time": 1784057141,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:20.799648+00:00"
+    },
+    {
+      "id": 48901356,
+      "title": "Satellite Tracker – Live Map of Starlink and 30k Satellites",
+      "url": "https://satellitemap.space/",
+      "score": 158,
+      "comments": 94,
+      "by": "rolph",
+      "time": 1783994124,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:21.365776+00:00"
+    },
+    {
+      "id": 48903082,
+      "title": "Indian scientists produce most detailed 3D atlas of the human brainstem",
+      "url": "https://www.bbc.com/news/articles/cg53l737v1qo",
+      "score": 202,
+      "comments": 21,
+      "by": "BaudouinVH",
+      "time": 1784011408,
+      "niche_signals": [
+        {
+          "keyword": "AI",
+          "type": "category",
+          "confidence": 0.5
+        }
+      ],
+      "collected_at": "2026-07-15T06:36:21.963793+00:00"
+    },
+    {
+      "id": 48901645,
+      "title": "Our Amish Language",
+      "url": "https://www.thedial.world/articles/news/amish-pennsylvania-dutch",
+      "score": 101,
+      "comments": 79,
+      "by": "NaOH",
+      "time": 1783996841,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:22.540849+00:00"
+    },
+    {
+      "id": 48903715,
+      "title": "Alternative(s) to run CUDA on non-Nvidia hardware",
+      "url": "https://www.hpcwire.com/2026/07/09/spectral-compute-aims-to-set-cuda-free-will-it-succeed/",
+      "score": 131,
+      "comments": 69,
+      "by": "alok-g",
+      "time": 1784017489,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:23.245006+00:00"
+    },
+    {
+      "id": 48912100,
+      "title": "StubHub, CEO hit with ‘deceptive practices’ class action over mass scalping",
+      "url": "https://www.cbc.ca/news/world/stubhub-ceo-class-action-scalping-9.7268987",
+      "score": 131,
+      "comments": 67,
+      "by": "b112",
+      "time": 1784058516,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:23.947883+00:00"
+    },
+    {
+      "id": 48858541,
+      "title": "Accretive Editing",
+      "url": "https://justindfuller.com/programming/accretive-editing",
+      "score": 24,
+      "comments": 11,
+      "by": "iamjfu",
+      "time": 1783683419,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:24.529548+00:00"
+    },
+    {
+      "id": 48905914,
+      "title": "Show HN: Beautiful Type Erasure with C++26 Reflection",
+      "url": "https://ryanjk5.github.io/posts/rjk-duck/",
+      "score": 112,
+      "comments": 50,
+      "by": "RyanJK5",
+      "time": 1784032850,
+      "niche_signals": [
+        {
+          "keyword": "Beautiful Type Erasure with C++26 Reflection",
+          "type": "product",
+          "confidence": 0.9
+        }
+      ],
+      "collected_at": "2026-07-15T06:36:25.102630+00:00"
+    },
+    {
+      "id": 48913677,
+      "title": "What to know about 'explosive diarrhoea' parasite outbreak in US",
+      "url": "https://www.bbc.com/news/articles/c621m66qm76o",
+      "score": 14,
+      "comments": 1,
+      "by": "teleforce",
+      "time": 1784067683,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:25.810527+00:00"
+    },
+    {
+      "id": 48915953,
+      "title": "Stripe, Advent offer to buy PayPal for more than $53B",
+      "url": "https://www.reuters.com/business/finance/stripe-advent-offer-buy-paypal-more-than-53-billion-sources-say-2026-07-15/",
+      "score": 19,
+      "comments": 10,
+      "by": "rvz",
+      "time": 1784086365,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:26.498884+00:00"
+    },
+    {
+      "id": 48863336,
+      "title": "Superoptimizer – A Look at the Smallest Program (1987) [pdf]",
+      "url": "https://dl.acm.org/doi/epdf/10.1145/36177.36194",
+      "score": 62,
+      "comments": 9,
+      "by": "linggen",
+      "time": 1783707327,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:27.071711+00:00"
+    },
+    {
+      "id": 48913910,
+      "title": "Casio FX-870P Emulator",
+      "url": "https://github.com/urbancamo/fx870p-emulator",
+      "score": 20,
+      "comments": 3,
+      "by": "austinallegro",
+      "time": 1784069278,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:27.761208+00:00"
+    },
+    {
+      "id": 48900541,
+      "title": "Human Canaries: Remembering the Munitionettes",
+      "url": "https://www.historytoday.com/archive/great-debates/human-canaries-remembering-munitionettes",
+      "score": 14,
+      "comments": 0,
+      "by": "Thevet",
+      "time": 1783986795,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:28.339087+00:00"
+    },
+    {
+      "id": 48911854,
+      "title": "Show HN: Flashbang – DuckDuckGo bangs resolved locally with a Service Worker",
+      "url": "https://flashbang-dyr.pages.dev",
+      "score": 15,
+      "comments": 1,
+      "by": "t3ntxcles",
+      "time": 1784057382,
+      "niche_signals": [
+        {
+          "keyword": "Flashbang",
+          "type": "product",
+          "confidence": 0.9
+        }
+      ],
+      "collected_at": "2026-07-15T06:36:29.048242+00:00"
+    },
+    {
+      "id": 48915244,
+      "title": "Global Warming at 3 °C by 2050? What's Behind the New German Climate Warning",
+      "url": "https://worldcrunch.com/focus/green-or-gone/global-warming-at-3c-by-2050-what-s-behind-the-new-german-climate-warning/",
+      "score": 91,
+      "comments": 100,
+      "by": "tejohnso",
+      "time": 1784079829,
+      "niche_signals": [
+        {
+          "keyword": "Developer Tools",
+          "type": "category",
+          "confidence": 0.5
+        }
+      ],
+      "collected_at": "2026-07-15T06:36:29.915381+00:00"
+    },
+    {
+      "id": 48905105,
+      "title": "No Spanish reading crisis?",
+      "url": "https://www.commonreader.co.uk/p/no-spanish-reading-crisis",
+      "score": 84,
+      "comments": 126,
+      "by": "jruohonen",
+      "time": 1784028719,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:30.496131+00:00"
+    },
+    {
+      "id": 48900796,
+      "title": "What did SFFA vs. Harvard reveal about admissions?",
+      "url": "https://sorting-machine.pages.dev/",
+      "score": 65,
+      "comments": 144,
+      "by": "StrageMusik",
+      "time": 1783988803,
+      "niche_signals": [
+        {
+          "keyword": "What did SFFA vs Harvard reveal about admissions",
+          "type": "comparison",
+          "confidence": 0.85
+        }
+      ],
+      "collected_at": "2026-07-15T06:36:31.069461+00:00"
+    },
+    {
+      "id": 48914472,
+      "title": "Legal AI, not a coding agent with scaffolding",
+      "url": "https://lexifina.com/blog/legal-ai-not-a-coding-agent-with-scaffolding",
+      "score": 8,
+      "comments": 0,
+      "by": "alansaber",
+      "time": 1784073117,
+      "niche_signals": [
+        {
+          "keyword": "AI",
+          "type": "category",
+          "confidence": 0.5
+        }
+      ],
+      "collected_at": "2026-07-15T06:36:31.758366+00:00"
+    },
+    {
+      "id": 48905764,
+      "title": "Coding agents think ahead of time",
+      "url": "https://arxiv.org/abs/2607.05188",
+      "score": 90,
+      "comments": 74,
+      "by": "andre15silva",
+      "time": 1784032089,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:32.479604+00:00"
+    },
+    {
+      "id": 48913936,
+      "title": "The politics of air conditioning in Switzerland",
+      "url": "https://lenews.ch/2026/05/29/the-politics-of-air-conditioning-in-switzerland/",
+      "score": 21,
+      "comments": 22,
+      "by": "bookofjoe",
+      "time": 1784069424,
+      "niche_signals": [
+        {
+          "keyword": "AI",
+          "type": "category",
+          "confidence": 0.5
+        }
+      ],
+      "collected_at": "2026-07-15T06:36:33.049026+00:00"
+    },
+    {
+      "id": 48887810,
+      "title": "A metallurgist's doubts about self-replicating probes",
+      "url": "https://www.centauri-dreams.org/2026/07/10/a-metallurgists-doubts-about-self-replicating-probes/",
+      "score": 152,
+      "comments": 89,
+      "by": "EA-3167",
+      "time": 1783915880,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:33.619549+00:00"
+    },
+    {
+      "id": 48901454,
+      "title": "Fundamentals of Wireless Communication (2005)",
+      "url": "https://web.stanford.edu/~dntse/wireless_book.html",
+      "score": 176,
+      "comments": 12,
+      "by": "teleforce",
+      "time": 1783995019,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:34.195211+00:00"
+    },
+    {
+      "id": 48897104,
+      "title": "The infinite scroll may become endangered if controversial Calif. law passes",
+      "url": "https://www.sfgate.com/politics/article/meta-social-media-teenagers-22337724.php",
+      "score": 220,
+      "comments": 422,
+      "by": "Stratoscope",
+      "time": 1783968833,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:34.764957+00:00"
+    },
+    {
+      "id": 48892709,
+      "title": "Nokia’s years of mobile-phone supremacy ended in an afternoon",
+      "url": "https://spectrum.ieee.org/nokia-phones-history",
+      "score": 176,
+      "comments": 152,
+      "by": "jruohonen",
+      "time": 1783950850,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:36.059517+00:00"
+    },
+    {
+      "id": 48873275,
+      "title": "C++20 Improved the For-Loop Syntax",
+      "url": "https://lzon.ca/posts/tips/cpp-for-range-init/",
+      "score": 35,
+      "comments": 47,
+      "by": "jpmitchell",
+      "time": 1783786219,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:38.517304+00:00"
+    },
+    {
+      "id": 48902026,
+      "title": "YouTrackDB is a general-use object-oriented graph database",
+      "url": "https://github.com/JetBrains/youtrackdb",
+      "score": 168,
+      "comments": 66,
+      "by": "gjvc",
+      "time": 1784000395,
+      "niche_signals": [
+        {
+          "keyword": "Database",
+          "type": "category",
+          "confidence": 0.5
+        }
+      ],
+      "collected_at": "2026-07-15T06:36:39.232340+00:00"
+    },
+    {
+      "id": 48914917,
+      "title": "House Votes for Permanent Daylight Saving Time",
+      "url": "https://www.nytimes.com/2026/07/14/us/politics/house-daylight-savings-time-sunshine-protection-act.html",
+      "score": 18,
+      "comments": 7,
+      "by": "donohoe",
+      "time": 1784076930,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:39.947705+00:00"
+    },
+    {
+      "id": 48912947,
+      "title": "Same model, same Q4_K_M label: 5.02, 5.07 and 5.27 bits per weight",
+      "url": "https://github.com/logxio/picchio",
+      "score": 13,
+      "comments": 2,
+      "by": "logickkk1",
+      "time": 1784063171,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:40.659003+00:00"
+    },
+    {
+      "id": 48872833,
+      "title": "How to build a circular LCD clock",
+      "url": "https://blinry.org/lcd-clock/",
+      "score": 142,
+      "comments": 63,
+      "by": "birdculture",
+      "time": 1783783434,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:41.238610+00:00"
+    },
+    {
+      "id": 48913407,
+      "title": "The 3-degree limit could be exceeded as early as 2050",
+      "url": "https://www.dpg-physik.de/veroeffentlichungen/publikationen/stellungnahmen-der-dpg/klima-energie/klimaaufruf",
+      "score": 36,
+      "comments": 8,
+      "by": "simmerup",
+      "time": 1784066059,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:41.812859+00:00"
+    },
+    {
+      "id": 48905667,
+      "title": "Differentiable Fortran with LFortran and Enzyme",
+      "url": "https://docs.pasteurlabs.ai/projects/tesseract-core/latest/blog/2026-07-09-enzyme-lfortran-autodiff.html",
+      "score": 51,
+      "comments": 17,
+      "by": "dionhaefner",
+      "time": 1784031706,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:42.383710+00:00"
+    },
+    {
+      "id": 48901224,
+      "title": "The Economics of Recursive Self-Improvement [pdf]",
+      "url": "https://elasticity.institute/rsi-paper.pdf",
+      "score": 144,
+      "comments": 89,
+      "by": "apsec112",
+      "time": 1783992923,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:42.953653+00:00"
+    },
+    {
+      "id": 48902791,
+      "title": "Just Let Me Write Digits",
+      "url": "https://gendx.dev/blog/2026/07/13/input-digits.html",
+      "score": 149,
+      "comments": 83,
+      "by": "brandon_bot",
+      "time": 1784008670,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:43.534185+00:00"
+    },
+    {
+      "id": 48884984,
+      "title": "Ask HN: What Are You Working On? (July 2026)",
+      "url": "",
+      "score": 268,
+      "comments": 1045,
+      "by": "david927",
+      "time": 1783891601,
+      "niche_signals": [
+        {
+          "keyword": "What Are You Working On",
+          "type": "problem",
+          "confidence": 0.7
+        }
+      ],
+      "collected_at": "2026-07-15T06:36:44.114532+00:00"
+    },
+    {
+      "id": 48861098,
+      "title": "Banter",
+      "url": "https://homosabiens.substack.com/p/banter",
+      "score": 18,
+      "comments": 3,
+      "by": "surprisetalk",
+      "time": 1783696511,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:44.823125+00:00"
+    },
+    {
+      "id": 48914385,
+      "title": "We Demand Perfect Machines yet Tolerate Human Carnage",
+      "url": "https://www.noemamag.com/why-we-demand-perfect-machines-yet-tolerate-human-carnage/",
+      "score": 9,
+      "comments": 4,
+      "by": "mikelgan",
+      "time": 1784072500,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:45.396929+00:00"
+    },
+    {
+      "id": 48916497,
+      "title": "Texas Police Spent $4.5M on Four Chevy Tahoes",
+      "url": "https://www.thedrive.com/news/how-texas-police-spent-4-5-million-on-four-chevy-tahoes",
+      "score": 3,
+      "comments": 1,
+      "by": "ethandmd",
+      "time": 1784092010,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:46.089973+00:00"
+    },
+    {
+      "id": 48904902,
+      "title": "Actegories",
+      "url": "https://bartoszmilewski.com/2026/06/30/actegories/",
+      "score": 48,
+      "comments": 9,
+      "by": "ibobev",
+      "time": 1784027115,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:46.796749+00:00"
+    },
+    {
+      "id": 48914251,
+      "title": "NeuralPGN – local-first chess repertoire trainer with FSRS (Tauri)",
+      "url": "https://github.com/kfunezc204/neuralpgn",
+      "score": 4,
+      "comments": 0,
+      "by": "kfunezc204",
+      "time": 1784071493,
+      "niche_signals": [
+        {
+          "keyword": "AI",
+          "type": "category",
+          "confidence": 0.5
+        }
+      ],
+      "collected_at": "2026-07-15T06:36:47.374811+00:00"
+    },
+    {
+      "id": 48901235,
+      "title": "Is x86 ready to ACE it?",
+      "url": "https://chipsandcheese.com/p/is-x86-ready-to-ace-it",
+      "score": 104,
+      "comments": 29,
+      "by": "mfiguiere",
+      "time": 1783992973,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:47.952329+00:00"
+    },
+    {
+      "id": 48898134,
+      "title": "Linux 0.11 rewritten in idiomatic Rust, boots in QEMU",
+      "url": "https://github.com/Poseidon-fan/linux-0.11-rs",
+      "score": 130,
+      "comments": 131,
+      "by": "arto",
+      "time": 1783973489,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:48.532190+00:00"
+    },
+    {
+      "id": 48892859,
+      "title": "Show HN: Clawk – Give coding agents a disposable Linux VM, not your laptop",
+      "url": "https://github.com/clawkwork/clawk",
+      "score": 215,
+      "comments": 156,
+      "by": "celrenheit",
+      "time": 1783951323,
+      "niche_signals": [
+        {
+          "keyword": "Clawk",
+          "type": "product",
+          "confidence": 0.9
+        }
+      ],
+      "collected_at": "2026-07-15T06:36:49.104730+00:00"
+    },
+    {
+      "id": 48914892,
+      "title": "Texas factory cost $469M using old equipment, makes zero artillery shells",
+      "url": "https://taskandpurpose.com/news/texas-ammo-factory-zero-shells/",
+      "score": 19,
+      "comments": 7,
+      "by": "ilamont",
+      "time": 1784076757,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:49.808117+00:00"
+    },
+    {
+      "id": 48853146,
+      "title": "World-First 'Super Alloy' Could Transform the Way Metals Are Made",
+      "url": "https://www.sciencealert.com/world-first-super-alloy-could-transform-the-way-metals-are-made",
+      "score": 94,
+      "comments": 53,
+      "by": "tejohnso",
+      "time": 1783635635,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:50.384548+00:00"
+    },
+    {
+      "id": 48901010,
+      "title": "The git history command",
+      "url": "https://lalitm.com/post/git-history/",
+      "score": 433,
+      "comments": 309,
+      "by": "turbocon",
+      "time": 1783990631,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:50.957116+00:00"
+    },
+    {
+      "id": 48913894,
+      "title": "QR-Swastika-Avoider",
+      "url": "https://crates.io/crates/qr-swastika-avoider",
+      "score": 40,
+      "comments": 36,
+      "by": "gregsadetsky",
+      "time": 1784069201,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:51.646921+00:00"
+    },
+    {
+      "id": 48905028,
+      "title": "Codex starts encrypting sub-agent prompts",
+      "url": "https://github.com/openai/codex/issues/28058",
+      "score": 415,
+      "comments": 245,
+      "by": "embedding-shape",
+      "time": 1784028092,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:52.441641+00:00"
+    },
+    {
+      "id": 48901126,
+      "title": "MorphoHDL: A minimalistic language for growing circuits",
+      "url": "https://paradigms-of-intelligence.github.io/morpho/",
+      "score": 96,
+      "comments": 8,
+      "by": "jacktang",
+      "time": 1783991850,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:53.167429+00:00"
+    },
+    {
+      "id": 48893446,
+      "title": "Precursor",
+      "url": "https://blog.cloudflare.com/introducing-precursor/",
+      "score": 202,
+      "comments": 159,
+      "by": "AznHisoka",
+      "time": 1783953578,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:53.739625+00:00"
+    },
+    {
+      "id": 48912254,
+      "title": "Pg_re2: Postgres extension for fast, RE2-powered regular expressions in Postgres",
+      "url": "https://clickhouse.com/blog/introducing-pg_re2-regex-in-postgres",
+      "score": 16,
+      "comments": 1,
+      "by": "saisrirampur",
+      "time": 1784059301,
+      "niche_signals": [
+        {
+          "keyword": "Database",
+          "type": "category",
+          "confidence": 0.5
+        }
+      ],
+      "collected_at": "2026-07-15T06:36:54.436086+00:00"
+    },
+    {
+      "id": 48896665,
+      "title": "Building and shipping Mac and iOS apps without opening Xcode",
+      "url": "https://scottwillsey.com/building-and-shipping-mac-and-ios-apps-without-ever-opening-xcode/",
+      "score": 540,
+      "comments": 230,
+      "by": "speckx",
+      "time": 1783966936,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:55.003778+00:00"
+    },
+    {
+      "id": 48901569,
+      "title": "Japan develops a method to recover up to 90% of lithium from used EV batteries",
+      "url": "https://tech.supercarblondie.com/japan-recovers-up-to-90-of-lithium-from-used-ev-batteries/",
+      "score": 726,
+      "comments": 188,
+      "by": "donohoe",
+      "time": 1783996040,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:55.572281+00:00"
+    },
+    {
+      "id": 48907398,
+      "title": "The Death of the Creator Middle Class",
+      "url": "https://letters.byburk.net/p/the-death-of-the-creator-middle-class",
+      "score": 37,
+      "comments": 16,
+      "by": "spking",
+      "time": 1784039024,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:56.274169+00:00"
+    },
+    {
+      "id": 48906123,
+      "title": "Tensor Is the Might",
+      "url": "https://zserge.com/posts/tensor/",
+      "score": 49,
+      "comments": 23,
+      "by": "eatonphil",
+      "time": 1784033781,
+      "niche_signals": [],
+      "collected_at": "2026-07-15T06:36:56.966078+00:00"
+    }
+  ],
+  "signal_summary": [
+    {
+      "keyword": "AI",
+      "count": 17,
+      "type": "category"
+    },
+    {
+      "keyword": "Database",
+      "count": 3,
+      "type": "category"
+    },
+    {
+      "keyword": "Automation",
+      "count": 2,
+      "type": "category"
+    },
+    {
+      "keyword": "Security",
+      "count": 2,
+      "type": "category"
+    },
+    {
+      "keyword": "SaaS",
+      "count": 2,
+      "type": "category"
+    },
+    {
+      "keyword": "Juggler",
+      "count": 1,
+      "type": "product"
+    },
+    {
+      "keyword": "Opening lines of famous literary works",
+      "count": 1,
+      "type": "product"
+    },
+    {
+      "keyword": "Hosting",
+      "count": 1,
+      "type": "category"
+    },
+    {
+      "keyword": "X11 vs Wayland",
+      "count": 1,
+      "type": "comparison"
+    },
+    {
+      "keyword": "I RL",
+      "count": 1,
+      "type": "product"
+    },
+    {
+      "keyword": "Beautiful Type Erasure with C++26 Reflection",
+      "count": 1,
+      "type": "product"
+    },
+    {
+      "keyword": "Flashbang",
+      "count": 1,
+      "type": "product"
+    },
+    {
+      "keyword": "Developer Tools",
+      "count": 1,
+      "type": "category"
+    },
+    {
+      "keyword": "What did SFFA vs Harvard reveal about admissions",
+      "count": 1,
+      "type": "comparison"
+    },
+    {
+      "keyword": "What Are You Working On",
+      "count": 1,
+      "type": "problem"
+    },
+    {
+      "keyword": "Clawk",
+      "count": 1,
+      "type": "product"
+    }
+  ],
+  "total_stories": 99,
+  "collected_at": "2026-07-15T06:36:56.966172+00:00"
+}

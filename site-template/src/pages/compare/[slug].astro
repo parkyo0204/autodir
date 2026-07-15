@@ -1,0 +1,115 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import directoryData from '../data/directory.json';
+
+export function getStaticPaths() {
+  return directoryData.comparisons?.map((comp) => ({
+    params: { slug: comp.slug },
+    props: { comparison: comp },
+  })) || [];
+}
+
+const { comparison } = Astro.props;
+
+// Parse "X vs Y" to find items
+const [nameA, nameB] = comparison.title.split(' vs ').map(s => s.trim());
+const itemA = directoryData.items.find(i => i.name.toLowerCase().includes(nameA.toLowerCase()));
+const itemB = directoryData.items.find(i => i.name.toLowerCase().includes(nameB.toLowerCase()));
+
+// Schema Markup for comparison
+const schemaData = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": comparison.title,
+  "description": `Detailed comparison between ${nameA} and ${nameB}. Features, pricing, pros and cons.`,
+  "datePublished": new Date().toISOString(),
+};
+
+const title = `${comparison.title} - Comparison`;
+const description = `Compare ${nameA} and ${nameB}: features, pricing, pros and cons. Find the best option for your needs.`;
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+
+  <article>
+    <h1>{comparison.title}</h1>
+    <p class="intro">A detailed comparison between <strong>{nameA}</strong> and <strong>{nameB}</strong>.</p>
+
+    <div class="comparison-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>{nameA}</th>
+            <th>{nameB}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Rating</td>
+            <td>{itemA?.rating || 'N/A'} ★</td>
+            <td>{itemB?.rating || 'N/A'} ★</td>
+          </tr>
+          <tr>
+            <td>Reviews</td>
+            <td>{itemA?.reviews || 'N/A'}</td>
+            <td>{itemB?.reviews || 'N/A'}</td>
+          </tr>
+          <tr>
+            <td>Category</td>
+            <td>{itemA?.category || 'N/A'}</td>
+            <td>{itemB?.category || 'N/A'}</td>
+          </tr>
+          <tr>
+            <td>Description</td>
+            <td>{itemA?.description || 'N/A'}</td>
+            <td>{itemB?.description || 'N/A'}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <section class="verdict">
+      <h2>Which one should you choose?</h2>
+      <p>Both {nameA} and {nameB} are excellent tools. Choose <strong>{nameA}</strong> if you need {itemA?.category?.toLowerCase() || 'their specific features'}. Choose <strong>{nameB}</strong> if you prefer {itemB?.category?.toLowerCase() || 'their approach'}.</p>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .intro {
+    font-size: 1.125rem;
+    color: var(--color-muted);
+    margin-bottom: 2rem;
+  }
+
+  .comparison-table {
+    overflow-x: auto;
+    margin: 2rem 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--color-border);
+    text-align: left;
+  }
+
+  th {
+    background: #f9fafb;
+    font-weight: 600;
+  }
+
+  .verdict {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: #f0fdf4;
+    border-radius: 0.5rem;
+    border: 1px solid #86efac;
+  }
+</style>
