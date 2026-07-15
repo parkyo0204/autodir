@@ -50,7 +50,7 @@
       "date": "2026-07-15",
       "question": "수익화 전략은?",
       "decision": "AdSense 광고 + 제휴 링크. zxzx.app으로 1회 승인 후 서브도메인 확장.",
-      "reason": "단일 도메인으로 AdSense 승인 후 서브도메인 전체에 적용 가능.",
+      "reason": "신청 전: GSC 색인 확인, 실트래픽, 신뢰 페이지 완료(2026-07-16). 승인 후 서브도메인 확장.",
       "outcome": "pending",
       "source": "monetization"
     },
@@ -129,7 +129,16 @@
         "D-008",
         "D-009"
       ]
+    },
+    {
+      "id": "D-015",
+      "date": "2026-07-16",
+      "question": "이미지 도구 스택을 어떻게 고도화할 것인가?",
+      "decision": "jSquash(Squoosh WASM)+cropperjs+exifr+imgly ONNX+UpscalerJS ESRGAN slim. Canvas toBlob 폐기.",
+      "reason": "마케팅 주장과 실제 구현 정합. ZipPix/jSquash GitHub 패턴 채택. React 전면 재작성은 비용 대비 이득 없음.",
+      "outcome": "validated",
+      "source": "zxzx_app"
     }
   ],
-  "last_updated": "2026-07-16T00:00:00Z"
+  "last_updated": "2026-07-16T01:00:00Z"
 }
