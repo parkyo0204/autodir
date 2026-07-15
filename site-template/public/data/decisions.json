@@ -1,0 +1,77 @@
+{
+  "decisions": [
+    {
+      "id": "D-001",
+      "date": "2026-07-15",
+      "question": "어떤 트렌드 발견 방법을 사용할 것인가?",
+      "decision": "Google Trends RSS + HN API 조합. Reddit은 상업 사용 제약으로 제외.",
+      "reason": "무료, 안정적, 차단 위험 없음. Reddit API는 상업적 사용에 서면 승인 필요.",
+      "outcome": "validated",
+      "source": "trend_discovery"
+    },
+    {
+      "id": "D-002",
+      "date": "2026-07-15",
+      "question": "클라우드 인프라를 어떻게 구성할 것인가?",
+      "decision": "OCI AMD Micro 2대 + GitHub Actions + Cloudflare Pages",
+      "reason": "GCP e2-micro보다 OCI AMD Micro가 16배 강력. Always Free 범위 내.",
+      "outcome": "validated",
+      "source": "infrastructure"
+    },
+    {
+      "id": "D-003",
+      "date": "2026-07-15",
+      "question": "도메인 전략은?",
+      "decision": "zxzx.app 하나로 통일. 서브도메인으로 니치/플랫폼 확장.",
+      "reason": "AdSense 1회 승인으로 모든 서브도메인에 적용. 추가 비용 없음.",
+      "outcome": "validated",
+      "source": "domain_strategy"
+    },
+    {
+      "id": "D-004",
+      "date": "2026-07-15",
+      "question": "사이트 디자인 방향은?",
+      "decision": "Win95 스타일 폐기 → 전문 이미지 도구로 전환",
+      "reason": "Win95는 AdSense 승인 불리, SEO 불리, 전문성 없는 인상. 모던 UI로 전환.",
+      "outcome": "validated",
+      "source": "design"
+    },
+    {
+      "id": "D-005",
+      "date": "2026-07-15",
+      "question": "이미지 처리 기술 스택은?",
+      "decision": "Compressor.js + jSquash WASM (Squoosh) + pica Lanczos3",
+      "reason": "GitHub 조사 결과 최고 조합. Squoosh급 인코딩 품질, 무료, 브라우저 내 처리.",
+      "outcome": "validated",
+      "source": "tech_stack"
+    },
+    {
+      "id": "D-006",
+      "date": "2026-07-15",
+      "question": "수익화 전략은?",
+      "decision": "AdSense 광고 + 제휴 링크. zxzx.app으로 1회 승인 후 서브도메인 확장.",
+      "reason": "단일 도메인으로 AdSense 승인 후 서브도메인 전체에 적용 가능.",
+      "outcome": "pending",
+      "source": "monetization"
+    },
+    {
+      "id": "D-007",
+      "date": "2026-07-15",
+      "question": "블로그 운영 방식은?",
+      "decision": "파일 기반 블로그. 에이전트가 자동 업데이트.",
+      "reason": "사용자 직접 포스팅 불필요. 에이전트가 필요시 자동으로 블로그 작성.",
+      "outcome": "validated",
+      "source": "content_strategy"
+    },
+    {
+      "id": "D-008",
+      "date": "2026-07-15",
+      "question": "TypeScript 빌드 문제 해결 방법은?",
+      "decision": "TypeScript 폐기 → 순수 JavaScript + CDN 라이브러리",
+      "reason": "Cloudflare Pages에서 Vite 빌드 실패. 빌드 없이 직접 배포 가능한 JS로 전환.",
+      "outcome": "validated",
+      "source": "tech_stack"
+    }
+  ],
+  "last_updated": "2026-07-15T14:00:00Z"
+}
