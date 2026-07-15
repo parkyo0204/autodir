@@ -71,7 +71,52 @@
       "reason": "Cloudflare Pages에서 Vite 빌드 실패. 빌드 없이 직접 배포 가능한 JS로 전환.",
       "outcome": "validated",
       "source": "tech_stack"
+    },
+    {
+      "id": "D-009",
+      "date": "2026-07-15",
+      "question": "TypeScript 빌드 문제 해결 방법은?",
+      "decision": "TypeScript 폐기 → 순수 JavaScript + CDN 라이브러리",
+      "reason": "Cloudflare Pages에서 Vite 빌드 실패. 빌드 없이 직접 배포 가능한 JS로 전환.",
+      "outcome": "validated",
+      "source": "zxzx_app"
+    },
+    {
+      "id": "D-010",
+      "date": "2026-07-15",
+      "question": "블로그 운영 방식은?",
+      "decision": "파일 기반 블로그 13개 포스트. 에이전트가 자동 업데이트.",
+      "reason": "사용자 직접 포스팅 불필요. 에이전트가 필요시 자동으로 블로그 작성.",
+      "outcome": "validated",
+      "source": "zxzx_app"
+    },
+    {
+      "id": "D-011",
+      "date": "2026-07-15",
+      "question": "다국어 번역 방식은?",
+      "decision": "i18n.json 기반 4개 언어 (ko/en/ja/zh). innerHTML 사용으로 링크 보존.",
+      "reason": "textContent는 <a> 태그를 파괴. innerHTML로 변경하여 링크 유지.",
+      "outcome": "validated",
+      "source": "zxzx_app"
+    },
+    {
+      "id": "D-012",
+      "date": "2026-07-15",
+      "question": "로고/파비콘 방식은?",
+      "decision": "인라인 SVG + base64 data URI. 외부 파일 불필요.",
+      "reason": "Cloudflare Pages에서SVG MIME 타입 문제 발생. 인라인으로 원천 해결.",
+      "outcome": "validated",
+      "source": "zxzx_app"
+    },
+    {
+      "id": "D-013",
+      "date": "2026-07-15",
+      "question": "Squoosh WASM 아티클을 메인 페이지에도 표시할 것인가?",
+      "decision": "메인 페이지에 Squoosh 하이라이트 박스 + 기술 상세 링크 추가.",
+      "reason": "블로그에만 있으면 사용자가 못 봄. 메인에서 성능 차별화 강조.",
+      "outcome": "validated",
+      "source": "zxzx_app"
     }
   ],
-  "last_updated": "2026-07-15T14:00:00Z"
+  "last_updated": "2026-07-15T16:00:00Z"
 }

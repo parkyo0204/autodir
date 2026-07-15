@@ -1,14 +1,47 @@
 {
   "started_at": "2026-07-15T06:00:00Z",
-  "completed_at": "2026-07-15T14:00:00Z",
+  "completed_at": "2026-07-15T16:00:00Z",
   "steps": {
-    "trends": {"status": "success", "count": 20},
-    "reddit": {"status": "skipped", "reason": "commercial use requires approval"},
-    "hn": {"status": "success", "stories": 99, "signals": 16},
-    "scoring": {"status": "success"},
-    "zxzx_app": {"status": "success", "description": "이미지 도구 사이트 구축 및 배포"},
-    "cloudflare_deploy": {"status": "success", "url": "zxzx-app.pages.dev"},
-    "blog": {"status": "success", "posts": 13},
-    "i18n": {"status": "success", "languages": 4}
+    "trends": {
+      "status": "success",
+      "count": 20
+    },
+    "reddit": {
+      "status": "skipped",
+      "reason": "상업 사용 승인 필요"
+    },
+    "hn": {
+      "status": "success",
+      "stories": 99,
+      "signals": 16
+    },
+    "scoring": {
+      "status": "success"
+    },
+    "zxzx_app": {
+      "status": "success",
+      "description": "이미지 도구 사이트 구축 및 배포"
+    },
+    "cloudflare_deploy": {
+      "status": "success",
+      "url": "zxzx-app.pages.dev"
+    },
+    "blog": {
+      "status": "success",
+      "posts": 13
+    },
+    "i18n": {
+      "status": "success",
+      "languages": 4,
+      "keys": 1152
+    },
+    "logo_favicon": {
+      "status": "success",
+      "method": "inline SVG"
+    },
+    "squoosh_highlight": {
+      "status": "success",
+      "location": "main page"
+    }
   }
 }
