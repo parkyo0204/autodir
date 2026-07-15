@@ -1,6 +1,6 @@
 {
   "started_at": "2026-07-15T06:00:00Z",
-  "completed_at": "2026-07-16T01:00:00Z",
+  "completed_at": "2026-07-16T19:30:00Z",
   "steps": {
     "trends": {
       "status": "success",
@@ -28,12 +28,12 @@
     },
     "blog": {
       "status": "success",
-      "posts": 13
+      "posts": 20
     },
     "i18n": {
       "status": "success",
       "languages": 4,
-      "keys": 1379
+      "keys": 1400
     },
     "logo_favicon": {
       "status": "success",
@@ -62,6 +62,10 @@
     "adsense_prep": {
       "status": "success",
       "description": "Trust pages fixed; blog 20; sitemap; GSC checklist pending human"
+    },
+    "marketing_sync": {
+      "status": "success",
+      "description": "Home/blog/dashboard copy aligned to jSquash + 8 tools; i18n ?lang= fix"
     }
   },
   "automation": {
