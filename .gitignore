@@ -1,9 +1,14 @@
-
 # Virtual environment
 venv/
 node_modules/
 __pycache__/
 *.pyc
 .env
-data/
 
+# Root collector outputs only — keep site-template/public/data tracked
+/data/
+
+dist/
+.astro/
+.wrangler/
+*.log

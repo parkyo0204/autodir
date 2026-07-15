@@ -94,8 +94,8 @@
       "id": "D-011",
       "date": "2026-07-15",
       "question": "다국어 번역 방식은?",
-      "decision": "i18n.json 기반 4개 언어 (ko/en/ja/zh). innerHTML 사용으로 링크 보존.",
-      "reason": "textContent는 <a> 태그를 파괴. innerHTML로 변경하여 링크 유지.",
+      "decision": "i18n.json 기반 4개 언어 (ko/en/ja/zh), keys 1379. public/i18n.json fetch + missing-key preserve.",
+      "reason": "Vite dist에 /src/i18n.json 미포함으로 키 누락·혼용 발생. public 경로 + 전수 재번역으로 품질 고정.",
       "outcome": "validated",
       "source": "zxzx_app"
     },
@@ -116,7 +116,20 @@
       "reason": "블로그에만 있으면 사용자가 못 봄. 메인에서 성능 차별화 강조.",
       "outcome": "validated",
       "source": "zxzx_app"
+    },
+    {
+      "id": "D-014",
+      "date": "2026-07-16",
+      "question": "TypeScript/Vite 빌드를 폐기한 D-008/D-009를 유지할 것인가?",
+      "decision": "폐기 결정 철회. Vite + TypeScript 유지, CF Pages build_config로 dist 배포.",
+      "reason": "소스 루트 배포가 원인. npm run build → dist + Wrangler로 해결. D-008/D-009는 히스토리로 보존.",
+      "outcome": "validated",
+      "source": "zxzx_app",
+      "supersedes": [
+        "D-008",
+        "D-009"
+      ]
     }
   ],
-  "last_updated": "2026-07-15T16:00:00Z"
+  "last_updated": "2026-07-16T00:00:00Z"
 }

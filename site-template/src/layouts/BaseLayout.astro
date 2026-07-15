@@ -5,67 +5,79 @@ export interface Props {
   niche?: string;
 }
 
-const { title, description, niche } = Astro.props;
+const { title, description } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-// Schema Markup for directory
 const schemaData = {
   "@context": "https://schema.org",
-  "@type": "WebSite",
+  "@type": "WebApplication",
   "name": title,
   "description": description,
   "url": canonicalURL.href,
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": {
-      "@type": "EntryPoint",
-      "urlTemplate": `${Astro.site}?q={search_term_string}`
-    },
-    "query-input": "required name=search_term_string"
-  }
+  "applicationCategory": "BusinessApplication",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
 };
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title}</title>
   <meta name="description" content={description}>
+  <meta name="robots" content="noindex, nofollow">
   <link rel="canonical" href={canonicalURL.href}>
-
-  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content={title}>
   <meta property="og:description" content={description}>
   <meta property="og:url" content={canonicalURL.href}>
-
-  <!-- Schema.org JSON-LD -->
   <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --color-primary: #2563eb;
-      --color-bg: #ffffff;
-      --color-text: #1f2937;
-      --color-muted: #6b7280;
-      --color-border: #e5e7eb;
-      --max-width: 1200px;
+      --color-ink: #0B1220;
+      --color-accent: #0E7490;
+      --color-accent-soft: #ECFEFF;
+      --color-bg: #F5F7FA;
+      --color-surface: #EEF1F5;
+      --color-text: #0B1220;
+      --color-muted: #64748B;
+      --color-border: #D5DBE5;
+      --color-ok: #0F766E;
+      --color-err: #B91C1C;
+      --color-skip: #64748B;
+      --color-pending: #B45309;
+      --max-width: 1120px;
+      --font: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-display: 'Space Grotesk', var(--font);
+      --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+      --radius: 6px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: var(--font);
       color: var(--color-text);
-      background: var(--color-bg);
+      background:
+        radial-gradient(ellipse 80% 50% at 10% -10%, rgba(14, 116, 144, 0.08), transparent 50%),
+        radial-gradient(ellipse 60% 40% at 90% 0%, rgba(11, 18, 32, 0.04), transparent 45%),
+        var(--color-bg);
       line-height: 1.6;
+      min-height: 100vh;
     }
 
     header {
       border-bottom: 1px solid var(--color-border);
+      background: rgba(245, 247, 250, 0.85);
+      backdrop-filter: blur(8px);
       padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 20;
     }
 
     header .container {
@@ -75,58 +87,60 @@ const schemaData = {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 1rem;
     }
 
-    header h1 {
-      font-size: 1.5rem;
+    header .brand {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
       font-weight: 700;
-    }
-
-    header h1 a {
-      color: var(--color-text);
+      letter-spacing: -0.02em;
+      color: var(--color-ink);
       text-decoration: none;
     }
+
+    header .brand span {
+      color: var(--color-accent);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      margin-left: 0.5rem;
+      letter-spacing: 0.04em;
+    }
+
+    header nav a {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--color-muted);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    header nav a:hover { color: var(--color-accent); }
 
     main {
       max-width: var(--max-width);
       margin: 0 auto;
-      padding: 2rem 1rem;
+      padding: 2rem 1rem 3rem;
     }
 
     footer {
       border-top: 1px solid var(--color-border);
-      padding: 2rem 0;
-      margin-top: 4rem;
+      padding: 1.5rem 0;
       text-align: center;
       color: var(--color-muted);
-      font-size: 0.875rem;
-    }
-
-    .search-box {
-      margin: 2rem 0;
-    }
-
-    .search-box input {
-      width: 100%;
-      padding: 0.75rem 1rem;
-      border: 1px solid var(--color-border);
-      border-radius: 0.5rem;
-      font-size: 1rem;
-    }
-
-    .search-box input:focus {
-      outline: none;
-      border-color: var(--color-primary);
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+      font-size: 0.8125rem;
+      font-family: var(--font-mono);
     }
   </style>
 </head>
 <body>
   <header>
     <div class="container">
-      <h1><a href="/">{title}</a></h1>
+      <a class="brand" href="/">AutoDir<span>OBSERVE</span></a>
       <nav>
-        <a href="/">Home</a>
+        <a href="https://zxzx.app" target="_blank" rel="noopener">zxzx.app</a>
       </nav>
     </div>
   </header>
@@ -136,7 +150,7 @@ const schemaData = {
   </main>
 
   <footer>
-    <p>&copy; {new Date().getFullYear()} {title}. All rights reserved.</p>
+    <p>AutoDir · observation surface · no human control loop</p>
   </footer>
 </body>
 </html>

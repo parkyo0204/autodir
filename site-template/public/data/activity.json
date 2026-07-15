@@ -1,0 +1,35 @@
+{
+  "last_updated": "2026-07-16T00:00:00Z",
+  "events": [
+    {
+      "at": "2026-07-15T12:00:00Z",
+      "tag": "design",
+      "message": "Precision Lab redesign (Space Grotesk / IBM Plex / ink+teal) across image-tools"
+    },
+    {
+      "at": "2026-07-15T14:00:00Z",
+      "tag": "i18n",
+      "message": "i18n fetch path fixed to /i18n.json; full en/ja/zh retranslation (~1379 keys)"
+    },
+    {
+      "at": "2026-07-15T15:00:00Z",
+      "tag": "i18n",
+      "message": "KO Hanzi purge + HTML Chinese leftover sync; purity checks clean"
+    },
+    {
+      "at": "2026-07-15T16:00:00Z",
+      "tag": "deploy",
+      "message": "CF Pages build_config: npm install && npm run build → dist"
+    },
+    {
+      "at": "2026-07-16T00:00:00Z",
+      "tag": "seo",
+      "message": "SEO/GEO template: sitemap blog URLs, llms.txt, FAQPage on compress/convert/resize"
+    },
+    {
+      "at": "2026-07-16T00:30:00Z",
+      "tag": "dashboard",
+      "message": "Observatory UI: 6-stage automation board, activity, trends, niche filters"
+    }
+  ]
+}

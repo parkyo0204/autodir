@@ -1,15 +1,16 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const title = 'AutoDir 대시보드';
-const description = '자동화 파이프라인 프로세스 추적 및 의사결정 로그';
+const title = 'AutoDir Observatory';
+const description = 'AutoDir pipeline observation — automation gaps visible, no manual control surface.';
 ---
 
 <BaseLayout title={title} description={description}>
   <div id="login-screen">
     <div class="login-box">
-      <h2>로그인</h2>
-      <p>대시보드에 접근하려면 인증이 필요합니다.</p>
+      <p class="eyebrow">AUTODIR</p>
+      <h2>Observatory</h2>
+      <p>파이프라인 관찰용. 조작 패널이 아닙니다.</p>
       <form id="login-form">
         <input type="text" id="login-id" placeholder="아이디" autocomplete="username" required />
         <input type="password" id="login-pw" placeholder="비밀번호" autocomplete="current-password" required />
@@ -20,8 +21,11 @@ const description = '자동화 파이프라인 프로세스 추적 및 의사결
   </div>
 
   <div id="dashboard-content" style="display:none">
-    <h1>AutoDir 대시보드</h1>
-    <p class="subtitle">자동화 프로세스 추적 및 의사결정 로그</p>
+    <header class="page-hero">
+      <p class="eyebrow">PIPELINE OBSERVE</p>
+      <h1>AutoDir</h1>
+      <p class="subtitle">인간 개입 없이 돌아가야 할 자동화 루프의 현재 상태</p>
+    </header>
 
     <section>
       <h2>시스템 상태</h2>
@@ -29,20 +33,78 @@ const description = '자동화 파이프라인 프로세스 추적 및 의사결
     </section>
 
     <section>
-      <h2>파이프라인 단계</h2>
+      <h2>자동화 6단계</h2>
+      <p class="section-note">auto / partial / manual — 갭이 보이면 다음 자동화 대상</p>
+      <div class="stage-board" id="stage-board"></div>
+    </section>
+
+    <section>
+      <h2>파이프라인 스텝</h2>
       <div class="pipeline-flow" id="pipeline-flow"></div>
     </section>
 
     <section>
-      <h2>상위 니치</h2>
+      <h2>액티비티</h2>
+      <div class="activity-list" id="activity-list"></div>
+    </section>
+
+    <section>
+      <h2>트렌드 시그널</h2>
+      <div class="trends-grid">
+        <div>
+          <h3 class="panel-title">Google Trends (KR)</h3>
+          <ul class="trend-list" id="gt-list"></ul>
+        </div>
+        <div>
+          <h3 class="panel-title">Hacker News</h3>
+          <ul class="trend-list" id="hn-list"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>니치</h2>
+      <div class="filters">
+        <input type="search" id="niche-search" placeholder="키워드 검색" />
+        <select id="niche-status">
+          <option value="all">전체 상태</option>
+          <option value="live">live</option>
+          <option value="planned">planned</option>
+        </select>
+        <select id="niche-min-score">
+          <option value="0">점수 전체</option>
+          <option value="70">70+</option>
+          <option value="50">50+</option>
+          <option value="30">30+</option>
+        </select>
+      </div>
       <table class="niches-table" id="niches-table">
-        <thead><tr><th>#</th><th>키워드</th><th>점수</th><th>추천</th><th>서브도메인</th></tr></thead>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>키워드</th>
+            <th>점수</th>
+            <th>상태</th>
+            <th>추천</th>
+            <th>서브도메인</th>
+          </tr>
+        </thead>
         <tbody></tbody>
       </table>
     </section>
 
     <section>
       <h2>의사결정 로그</h2>
+      <p class="section-note">자동화 정책 기록 (append-only). 사람이 여기서 결정하지 않음.</p>
+      <div class="filters">
+        <select id="decision-outcome">
+          <option value="all">전체 outcome</option>
+          <option value="validated">validated</option>
+          <option value="pending">pending</option>
+          <option value="rejected">rejected</option>
+        </select>
+        <button type="button" id="decision-toggle" class="btn-ghost">모두 접기</button>
+      </div>
       <div class="decisions-list" id="decisions-list"></div>
     </section>
   </div>
@@ -51,6 +113,18 @@ const description = '자동화 파이프라인 프로세스 추적 및 의사결
     (function() {
       var HASH = '77f418ffdc5c7cad983bc931fb42d644ad5aacb96da59d9b63dd3f3dd20c3bf5';
       var ID = 'parkyo0204';
+      var nichesCache = [];
+      var decisionsCache = [];
+      var decisionsExpanded = true;
+
+      var STAGES = [
+        { id: 'trends', label: 'trends', mode: 'auto', map: ['trends', 'hn', 'reddit'] },
+        { id: 'scoring', label: 'scoring', mode: 'auto', map: ['scoring'] },
+        { id: 'build', label: 'build', mode: 'partial', map: ['zxzx_app', 'blog', 'i18n', 'logo_favicon', 'precision_lab', 'i18n_quality'] },
+        { id: 'deploy', label: 'deploy', mode: 'partial', map: ['cloudflare_deploy', 'seo_geo'] },
+        { id: 'distribute', label: 'distribute', mode: 'manual', map: [] },
+        { id: 'monetize', label: 'monetize', mode: 'manual', map: [] }
+      ];
 
       if (sessionStorage.getItem('autodir_auth') === '1') {
         showDashboard();
@@ -62,7 +136,9 @@ const description = '자동화 파이프라인 프로세스 추적 및 의사결
         var inputPw = document.getElementById('login-pw').value;
         var enc = new TextEncoder();
         var hashBuf = await crypto.subtle.digest('SHA-256', enc.encode(inputPw));
-        var hashHex = Array.from(new Uint8Array(hashBuf)).map(function(b) { return b.toString(16).padStart(2, '0'); }).join('');
+        var hashHex = Array.from(new Uint8Array(hashBuf)).map(function(b) {
+          return b.toString(16).padStart(2, '0');
+        }).join('');
         if (inputId === ID && hashHex === HASH) {
           sessionStorage.setItem('autodir_auth', '1');
           showDashboard();
@@ -77,92 +153,604 @@ const description = '자동화 파이프라인 프로세스 추적 및 의사결
         loadDashboard();
       }
 
+      function statusLabel(s) {
+        if (s === 'success') return 'OK';
+        if (s === 'error') return 'ERR';
+        if (s === 'skipped') return 'SKIP';
+        if (s === 'pending') return 'PEND';
+        return (s || '—').toUpperCase().slice(0, 4);
+      }
+
+      function escapeHtml(str) {
+        return String(str == null ? '' : str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
+      function stageDerived(steps, stage) {
+        if (stage.mode === 'manual') return 'manual';
+        var keys = stage.map;
+        if (!keys.length) return stage.mode;
+        var found = keys.filter(function(k) { return steps[k]; });
+        if (!found.length) return stage.mode === 'auto' ? 'pending' : 'partial';
+        var bad = found.some(function(k) { return steps[k].status === 'error'; });
+        if (bad) return 'error';
+        var ok = found.every(function(k) {
+          return steps[k].status === 'success' || steps[k].status === 'skipped';
+        });
+        if (ok && stage.mode === 'auto') return 'auto';
+        if (ok) return 'partial';
+        return stage.mode;
+      }
+
+      function renderNiches() {
+        var q = (document.getElementById('niche-search').value || '').toLowerCase();
+        var st = document.getElementById('niche-status').value;
+        var min = parseInt(document.getElementById('niche-min-score').value, 10) || 0;
+        var filtered = nichesCache.filter(function(n) {
+          if (q && String(n.keyword).toLowerCase().indexOf(q) === -1) return false;
+          if (st !== 'all' && (n.status || '') !== st) return false;
+          if ((n.total_score || 0) < min) return false;
+          return true;
+        });
+        var recMap = { STRONG: '강력', GOOD: '추천', MODERATE: '보통', WEAK: '약함' };
+        document.querySelector('#niches-table tbody').innerHTML = filtered.map(function(n, i) {
+          var cls = n.total_score >= 70 ? 'strong' : n.total_score >= 50 ? 'good' : n.total_score >= 30 ? 'moderate' : 'weak';
+          var rec = n.recommendation || '';
+          Object.keys(recMap).forEach(function(k) { rec = rec.replace(k, recMap[k]); });
+          var pct = Math.max(0, Math.min(100, n.total_score || 0));
+          var status = n.status || '—';
+          return '<tr><td>' + (i + 1) + '</td><td>' + escapeHtml(n.keyword) + '</td>' +
+            '<td><div class="score-bar"><span class="score ' + cls + '">' + n.total_score + '</span>' +
+            '<span class="bar"><i style="width:' + pct + '%"></i></span></div></td>' +
+            '<td><span class="badge ' + status + '">' + escapeHtml(status) + '</span></td>' +
+            '<td>' + escapeHtml(rec) + '</td>' +
+            '<td><code>' + escapeHtml(n.suggested_subdomain) + '.zxzx.app</code></td></tr>';
+        }).join('') || '<tr><td colspan="6">필터 결과 없음</td></tr>';
+      }
+
+      function renderDecisions() {
+        var out = document.getElementById('decision-outcome').value;
+        var list = decisionsCache.filter(function(d) {
+          return out === 'all' || d.outcome === out;
+        });
+        var outMap = { validated: '검증됨', pending: '대기중', rejected: '거부됨' };
+        document.getElementById('decisions-list').innerHTML = list.map(function(d) {
+          var open = decisionsExpanded ? ' open' : '';
+          return '<details class="decision-card"' + open + '>' +
+            '<summary><span class="decision-id">' + escapeHtml(d.id) + '</span>' +
+            '<span class="decision-date">' + escapeHtml(d.date) + '</span>' +
+            '<span class="decision-status ' + escapeHtml(d.outcome) + '">' +
+            escapeHtml(outMap[d.outcome] || d.outcome) + '</span>' +
+            '<span class="decision-q">' + escapeHtml(d.question) + '</span></summary>' +
+            '<div class="decision-body"><p><strong>결정</strong> ' + escapeHtml(d.decision) + '</p>' +
+            '<p><strong>근거</strong> ' + escapeHtml(d.reason) + '</p>' +
+            (d.source ? '<p class="meta">source: ' + escapeHtml(d.source) + '</p>' : '') +
+            '</div></details>';
+        }).join('') || '<p class="empty">해당 outcome 없음</p>';
+      }
+
       async function loadDashboard() {
         try {
-          var pRes = await fetch('/data/pipeline_report.json').then(function(r) { return r.json(); }).catch(function() { return {steps:{}}; });
-          var nRes = await fetch('/data/scored_niches.json').then(function(r) { return r.json(); }).catch(function() { return {niches:[]}; });
-          var dRes = await fetch('/data/decisions.json').then(function(r) { return r.json(); }).catch(function() { return {decisions:[]}; });
+          var results = await Promise.all([
+            fetch('/data/pipeline_report.json').then(function(r) { return r.json(); }).catch(function() { return { steps: {} }; }),
+            fetch('/data/scored_niches.json').then(function(r) { return r.json(); }).catch(function() { return { niches: [] }; }),
+            fetch('/data/decisions.json').then(function(r) { return r.json(); }).catch(function() { return { decisions: [] }; }),
+            fetch('/data/activity.json').then(function(r) { return r.json(); }).catch(function() { return { events: [] }; }),
+            fetch('/data/google_trends.json').then(function(r) { return r.json(); }).catch(function() { return {}; }),
+            fetch('/data/hn_trends.json').then(function(r) { return r.json(); }).catch(function() { return {}; })
+          ]);
+          var pRes = results[0];
+          var nRes = results[1];
+          var dRes = results[2];
+          var aRes = results[3];
+          var gRes = results[4];
+          var hRes = results[5];
 
           var steps = pRes.steps || {};
           var entries = Object.entries(steps);
           var ok = entries.filter(function(e) { return e[1].status === 'success'; }).length;
-
-          var statusMap = {
-            'trends': '트렌드 수집',
-            'reddit': 'Reddit 수집',
-            'hn': 'HN 수집',
-            'scoring': '니치 스코어링'
-          };
-          var statusLabels = {
-            'success': '성공',
-            'error': '실패',
-            'skipped': '건너뜀'
-          };
+          var autoStages = STAGES.filter(function(s) {
+            return stageDerived(steps, s) === 'auto';
+          }).length;
 
           document.getElementById('status-grid').innerHTML = [
-            {icon: ok === entries.length ? '✅' : '⚠️', label: '파이프라인', value: ok + '/' + entries.length + ' 단계 완료'},
-            {icon: '📊', label: '발견된 니치', value: (nRes.total_signals_analyzed || 0) + '개'},
-            {icon: '🕐', label: '마지막 실행', value: pRes.completed_at ? new Date(pRes.completed_at).toLocaleString('ko-KR') : '없음'},
-            {icon: '📝', label: '의사결정', value: (dRes.decisions || []).length + '건'},
+            { label: '파이프라인 스텝', value: ok + '/' + entries.length + ' OK' },
+            { label: '자동화 단계', value: autoStages + '/6 auto' },
+            { label: '니치 시그널', value: (nRes.total_signals_analyzed || nichesCache.length || (nRes.niches || []).length) + '' },
+            { label: '마지막 완료', value: pRes.completed_at ? new Date(pRes.completed_at).toLocaleString('ko-KR') : '없음' },
+            { label: '의사결정', value: (dRes.decisions || []).length + '건' },
+            { label: '액티비티', value: ((aRes.events || []).length) + '건' }
           ].map(function(c) {
-            return '<div class="status-card"><span class="status-icon">' + c.icon + '</span><span class="status-label">' + c.label + '</span><span class="status-value">' + c.value + '</span></div>';
+            return '<div class="status-card"><span class="status-label">' + c.label + '</span><span class="status-value">' + c.value + '</span></div>';
+          }).join('');
+
+          document.getElementById('stage-board').innerHTML = STAGES.map(function(s) {
+            var mode = stageDerived(steps, s);
+            return '<div class="stage ' + mode + '">' +
+              '<span class="stage-label">' + s.label + '</span>' +
+              '<span class="stage-mode">' + mode.toUpperCase() + '</span></div>';
           }).join('');
 
           document.getElementById('pipeline-flow').innerHTML = entries.map(function(e) {
-            var name = statusMap[e[0]] || e[0];
-            var status = statusLabels[e[1].status] || e[1].status;
-            return '<div class="step ' + e[1].status + '"><span class="step-name">' + name + '</span><span class="step-status">' + status + '</span>' + (e[1].count ? '<span class="step-detail">' + e[1].count + '건</span>' : '') + '</div>';
+            return '<div class="step ' + e[1].status + '">' +
+              '<span class="step-name">' + escapeHtml(e[0]) + '</span>' +
+              '<span class="step-status">' + statusLabel(e[1].status) + '</span>' +
+              (e[1].count != null ? '<span class="step-detail">' + e[1].count + '</span>' : '') +
+              (e[1].keys != null ? '<span class="step-detail">keys ' + e[1].keys + '</span>' : '') +
+              (e[1].description ? '<span class="step-detail">' + escapeHtml(e[1].description) + '</span>' : '') +
+              '</div>';
           }).join('');
 
-          var niches = (nRes.niches || []).slice(0, 10);
-          var recMap = {'STRONG': '강력 추천', 'GOOD': '추천', 'MODERATE': '보통', 'WEAK': '약함'};
-          document.querySelector('#niches-table tbody').innerHTML = niches.map(function(n, i) {
-            var cls = n.total_score >= 70 ? 'strong' : n.total_score >= 50 ? 'good' : n.total_score >= 30 ? 'moderate' : 'weak';
-            var rec = n.recommendation || '';
-            Object.keys(recMap).forEach(function(k) { rec = rec.replace(k, recMap[k]); });
-            return '<tr><td>' + (i+1) + '</td><td>' + n.keyword + '</td><td><span class="score ' + cls + '">' + n.total_score + '</span></td><td>' + rec + '</td><td><code>' + n.suggested_subdomain + '.zxzx.app</code></td></tr>';
-          }).join('');
+          var events = (aRes.events || []).slice().sort(function(a, b) {
+            return String(b.at).localeCompare(String(a.at));
+          });
+          document.getElementById('activity-list').innerHTML = events.map(function(ev) {
+            return '<div class="activity-item">' +
+              '<span class="activity-at">' + escapeHtml(ev.at) + '</span>' +
+              '<span class="activity-tag">' + escapeHtml(ev.tag || 'event') + '</span>' +
+              '<span class="activity-msg">' + escapeHtml(ev.message) + '</span></div>';
+          }).join('') || '<p class="empty">액티비티 없음</p>';
 
-          var outMap = {'validated': '검증됨', 'pending': '대기중', 'rejected': '거부됨'};
-          document.getElementById('decisions-list').innerHTML = (dRes.decisions || []).map(function(d) {
-            return '<div class="decision-card"><div class="decision-header"><span class="decision-id">' + d.id + '</span><span class="decision-date">' + d.date + '</span><span class="decision-status ' + d.outcome + '">' + (outMap[d.outcome] || d.outcome) + '</span></div><p class="decision-question">' + d.question + '</p><p><strong>결정:</strong> ' + d.decision + '</p><p><strong>근거:</strong> ' + d.reason + '</p></div>';
-          }).join('');
+          var gt = (gRes.KR || []).slice(0, 8);
+          document.getElementById('gt-list').innerHTML = gt.map(function(t) {
+            return '<li><span class="trend-title">' + escapeHtml(t.title) + '</span>' +
+              '<span class="trend-meta">' + escapeHtml(t.traffic || '') + '</span></li>';
+          }).join('') || '<li class="empty">데이터 없음</li>';
 
-        } catch(e) { console.error('대시보드 로드 오류:', e); }
+          var hn = (hRes.stories || []).slice().sort(function(a, b) {
+            return (b.score || 0) - (a.score || 0);
+          }).slice(0, 8);
+          document.getElementById('hn-list').innerHTML = hn.map(function(t) {
+            var href = t.url || ('https://news.ycombinator.com/item?id=' + t.id);
+            return '<li><a href="' + escapeHtml(href) + '" target="_blank" rel="noopener">' +
+              escapeHtml(t.title) + '</a><span class="trend-meta">' + (t.score || 0) + ' pts</span></li>';
+          }).join('') || '<li class="empty">데이터 없음</li>';
+
+          nichesCache = nRes.niches || [];
+          decisionsCache = dRes.decisions || [];
+          renderNiches();
+          renderDecisions();
+        } catch (err) {
+          console.error('대시보드 로드 오류:', err);
+        }
       }
+
+      document.getElementById('niche-search').addEventListener('input', renderNiches);
+      document.getElementById('niche-status').addEventListener('change', renderNiches);
+      document.getElementById('niche-min-score').addEventListener('change', renderNiches);
+      document.getElementById('decision-outcome').addEventListener('change', renderDecisions);
+      document.getElementById('decision-toggle').addEventListener('click', function() {
+        decisionsExpanded = !decisionsExpanded;
+        this.textContent = decisionsExpanded ? '모두 접기' : '모두 펼치기';
+        renderDecisions();
+      });
     })();
   </script>
 </BaseLayout>
 
 <style>
-  #login-screen{display:flex;justify-content:center;align-items:center;min-height:60vh}
-  .login-box{background:#f9fafb;border:1px solid var(--color-border);border-radius:1rem;padding:2.5rem;width:100%;max-width:400px;text-align:center}
-  .login-box h2{margin-bottom:.5rem}.login-box p{color:var(--color-muted);margin-bottom:1.5rem;font-size:.875rem}
-  .login-box input{width:100%;padding:.75rem;margin-bottom:.75rem;border:1px solid var(--color-border);border-radius:.5rem;font-size:1rem}
-  .login-box input:focus{outline:none;border-color:var(--color-primary);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
-  .login-box button{width:100%;padding:.75rem;background:var(--color-primary);color:white;border:none;border-radius:.5rem;font-size:1rem;cursor:pointer;font-weight:600}
-  .login-box button:hover{opacity:.9}
-  .error{color:#ef4444;font-size:.875rem;margin-top:.5rem}
-  .subtitle{color:var(--color-muted);margin-bottom:2rem}
-  .status-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:1rem 0 2rem}
-  .status-card{background:#f9fafb;border:1px solid var(--color-border);border-radius:.75rem;padding:1.25rem;display:flex;flex-direction:column;gap:.5rem}
-  .status-icon{font-size:1.5rem}.status-label{font-size:.875rem;color:var(--color-muted)}.status-value{font-size:1.25rem;font-weight:600}
-  section{margin-bottom:2.5rem}
-  .pipeline-flow{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem}
-  .step{padding:.75rem 1rem;border-radius:.5rem;border:1px solid var(--color-border);display:flex;flex-direction:column;gap:.25rem;min-width:140px}
-  .step.success{background:#f0fdf4;border-color:#86efac}.step.error{background:#fef2f2;border-color:#fca5a5}.step.skipped{background:#f9fafb;opacity:.7}
-  .step-name{font-weight:600}.step-status{font-size:.75rem;color:var(--color-muted)}.step-detail{font-size:.75rem;color:var(--color-muted)}
-  .niches-table{width:100%;border-collapse:collapse;margin-top:1rem}
-  .niches-table th,.niches-table td{padding:.75rem 1rem;border:1px solid var(--color-border);text-align:left}
-  .niches-table th{background:#f9fafb;font-weight:600}
-  .score{font-weight:700;padding:.125rem .5rem;border-radius:.25rem}
-  .score.strong{background:#dcfce7;color:#166534}.score.good{background:#dbeafe;color:#1e40af}
-  .score.moderate{background:#fef3c7;color:#92400e}.score.weak{background:#fee2e2;color:#991b1b}
-  .decisions-list{display:flex;flex-direction:column;gap:1rem;margin-top:1rem}
-  .decision-card{border:1px solid var(--color-border);border-radius:.75rem;padding:1.25rem}
-  .decision-header{display:flex;gap:.75rem;align-items:center;margin-bottom:.75rem}
-  .decision-id{font-weight:700;font-family:monospace}.decision-date{color:var(--color-muted);font-size:.875rem}
-  .decision-status{font-size:.75rem;padding:.125rem .5rem;border-radius:1rem}
-  .decision-status.validated{background:#dcfce7;color:#166534}.decision-status.pending{background:#fef3c7;color:#92400e}
-  .decision-question{font-style:italic;color:var(--color-muted);margin-bottom:.5rem}
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+
+  .page-hero {
+    margin-bottom: 2.5rem;
+  }
+
+  .page-hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+
+  .subtitle, .section-note {
+    color: var(--color-muted);
+    margin-top: 0.5rem;
+    font-size: 0.9375rem;
+  }
+
+  .section-note { margin-bottom: 1rem; font-size: 0.8125rem; }
+
+  #login-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+  }
+
+  .login-box {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 2.25rem;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(11, 18, 32, 0.06);
+  }
+
+  .login-box h2 {
+    font-family: var(--font-display);
+    margin-bottom: 0.35rem;
+  }
+
+  .login-box > p { color: var(--color-muted); margin-bottom: 1.5rem; font-size: 0.875rem; }
+
+  .login-box input {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    font-family: var(--font);
+    background: var(--color-bg);
+  }
+
+  .login-box input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(14, 116, 144, 0.15);
+  }
+
+  .login-box button, .btn-ghost {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: var(--color-ink);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 0.9375rem;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: var(--font);
+  }
+
+  .login-box button:hover { background: var(--color-accent); }
+
+  .btn-ghost {
+    width: auto;
+    background: transparent;
+    color: var(--color-ink);
+    border: 1px solid var(--color-border);
+  }
+
+  .error { color: var(--color-err); font-size: 0.875rem; margin-top: 0.5rem; }
+
+  section { margin-bottom: 2.75rem; }
+
+  section > h2 {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.25rem;
+  }
+
+  .status-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .status-card {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 1rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .status-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    color: var(--color-muted);
+    text-transform: uppercase;
+  }
+
+  .status-value {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+  }
+
+  .stage-board {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 900px) {
+    .stage-board { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (max-width: 520px) {
+    .stage-board { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .stage {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 0.85rem 0.75rem;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    min-height: 72px;
+  }
+
+  .stage-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .stage-mode {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    color: var(--color-muted);
+  }
+
+  .stage.auto { border-color: #99f6e4; background: #f0fdfa; }
+  .stage.auto .stage-mode { color: var(--color-ok); }
+  .stage.partial { border-color: #fcd34d; background: #fffbeb; }
+  .stage.partial .stage-mode { color: var(--color-pending); }
+  .stage.manual, .stage.pending { border-color: var(--color-border); background: var(--color-surface); }
+  .stage.manual .stage-mode, .stage.pending .stage-mode { color: var(--color-skip); }
+  .stage.error { border-color: #fca5a5; background: #fef2f2; }
+  .stage.error .stage-mode { color: var(--color-err); }
+
+  .pipeline-flow {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+
+  .step {
+    padding: 0.7rem 0.85rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--color-border);
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 132px;
+  }
+
+  .step.success { border-color: #99f6e4; }
+  .step.error { border-color: #fca5a5; }
+  .step.skipped { opacity: 0.65; }
+  .step.pending { border-style: dashed; }
+
+  .step-name { font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600; }
+  .step-status {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    color: var(--color-ok);
+  }
+  .step.error .step-status { color: var(--color-err); }
+  .step.skipped .step-status { color: var(--color-skip); }
+  .step-detail { font-size: 0.7rem; color: var(--color-muted); }
+
+  .activity-list { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem; }
+
+  .activity-item {
+    display: grid;
+    grid-template-columns: 11rem 6rem 1fr;
+    gap: 0.75rem;
+    align-items: baseline;
+    padding: 0.75rem 0.9rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: #fff;
+    font-size: 0.875rem;
+  }
+
+  @media (max-width: 720px) {
+    .activity-item { grid-template-columns: 1fr; gap: 0.25rem; }
+  }
+
+  .activity-at, .activity-tag {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-muted);
+  }
+
+  .activity-tag {
+    color: var(--color-accent);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .trends-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 720px) {
+    .trends-grid { grid-template-columns: 1fr; }
+  }
+
+  .panel-title {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .trend-list {
+    list-style: none;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: #fff;
+    overflow: hidden;
+  }
+
+  .trend-list li {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.65rem 0.85rem;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 0.875rem;
+  }
+
+  .trend-list li:last-child { border-bottom: none; }
+  .trend-list a { color: var(--color-ink); text-decoration: none; }
+  .trend-list a:hover { color: var(--color-accent); }
+  .trend-meta { font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-muted); white-space: nowrap; }
+
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0;
+  }
+
+  .filters input, .filters select {
+    padding: 0.55rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    font-family: var(--font);
+    font-size: 0.875rem;
+    background: #fff;
+  }
+
+  .niches-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .niches-table th, .niches-table td {
+    padding: 0.7rem 0.85rem;
+    border-bottom: 1px solid var(--color-border);
+    text-align: left;
+    font-size: 0.875rem;
+  }
+
+  .niches-table th {
+    background: var(--color-surface);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .niches-table code {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-accent);
+  }
+
+  .score-bar { display: flex; align-items: center; gap: 0.5rem; min-width: 110px; }
+  .score { font-weight: 700; font-family: var(--font-mono); font-size: 0.8rem; }
+  .score.strong { color: #166534; }
+  .score.good { color: #1e40af; }
+  .score.moderate { color: #92400e; }
+  .score.weak { color: #991b1b; }
+
+  .bar {
+    flex: 1;
+    height: 4px;
+    background: var(--color-surface);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .bar i {
+    display: block;
+    height: 100%;
+    background: var(--color-accent);
+  }
+
+  .badge {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    border: 1px solid var(--color-border);
+  }
+
+  .badge.live { color: var(--color-ok); border-color: #99f6e4; background: #f0fdfa; }
+  .badge.planned { color: var(--color-pending); border-color: #fcd34d; background: #fffbeb; }
+
+  .decisions-list { display: flex; flex-direction: column; gap: 0.6rem; }
+
+  .decision-card {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: #fff;
+    overflow: hidden;
+  }
+
+  .decision-card summary {
+    cursor: pointer;
+    list-style: none;
+    display: grid;
+    grid-template-columns: 4rem 6.5rem 4.5rem 1fr;
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.85rem 1rem;
+  }
+
+  .decision-card summary::-webkit-details-marker { display: none; }
+
+  @media (max-width: 720px) {
+    .decision-card summary { grid-template-columns: 1fr 1fr; }
+    .decision-q { grid-column: 1 / -1; }
+  }
+
+  .decision-id { font-family: var(--font-mono); font-weight: 700; font-size: 0.8rem; }
+  .decision-date { font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-muted); }
+  .decision-q { font-size: 0.875rem; color: var(--color-muted); }
+  .decision-status {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.04em;
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    text-align: center;
+  }
+
+  .decision-status.validated { background: #f0fdfa; color: #166534; }
+  .decision-status.pending { background: #fffbeb; color: #92400e; }
+  .decision-status.rejected { background: #fef2f2; color: #991b1b; }
+
+  .decision-body {
+    padding: 0 1rem 1rem;
+    border-top: 1px solid var(--color-border);
+    padding-top: 0.85rem;
+    font-size: 0.875rem;
+  }
+
+  .decision-body p { margin-bottom: 0.4rem; }
+  .decision-body .meta { font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-muted); }
+  .empty { color: var(--color-muted); font-size: 0.875rem; padding: 0.5rem 0; }
 </style>
