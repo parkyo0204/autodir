@@ -1,6 +1,6 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import directoryData from '../data/directory.json';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import directoryData from '../../data/directory.json';
 
 export function getStaticPaths() {
   return directoryData.comparisons?.map((comp) => ({
