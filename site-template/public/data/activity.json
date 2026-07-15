@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-16T19:30:00Z",
+  "last_updated": "2026-07-16T20:00:00Z",
   "events": [
     {
       "at": "2026-07-15T12:00:00Z",
@@ -50,6 +50,21 @@
       "at": "2026-07-16T19:15:00Z",
       "tag": "i18n",
       "message": "?lang= query honored; new blog cards i18n; ko/en/ja/zh marketing keys refreshed"
+    },
+    {
+      "at": "2026-07-16T19:45:00Z",
+      "tag": "i18n",
+      "message": "Quality plan A: nested data-i18n removed; ?lang= URL sync; KO/EN trust copy"
+    },
+    {
+      "at": "2026-07-16T19:50:00Z",
+      "tag": "blog",
+      "message": "Quality plan B: 7 new posts get title/meta/h1/lead i18n chrome"
+    },
+    {
+      "at": "2026-07-16T19:55:00Z",
+      "tag": "adsense",
+      "message": "Quality plan C: About AdSense pre-claim softened; GSC checklist marked human-gated"
     }
   ]
 }
