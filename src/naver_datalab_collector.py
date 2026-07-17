@@ -64,13 +64,10 @@ def _request_trends(keywords: list[str], start_date: date, end_date: date) -> di
     try:
         response = requests.post(API_URL, headers=headers, json=payload, timeout=15)
     except requests.RequestException as error:
-        raise NaverDataLabError(f"Naver DataLab 요청 실패: {error}") from error
+        raise NaverDataLabError("Naver DataLab 네트워크 요청에 실패했습니다.") from error
 
     if response.status_code != 200:
-        detail = response.text.strip().replace("\n", " ")[:300]
-        raise NaverDataLabError(
-            f"Naver DataLab HTTP {response.status_code}: {detail}"
-        )
+        raise NaverDataLabError(f"Naver DataLab HTTP 오류: {response.status_code}")
 
     try:
         return response.json()
@@ -118,6 +115,12 @@ def collect_all(keywords: list[str] | None = None) -> dict:
     start_date = end_date - timedelta(days=84)
     response = _request_trends(selected_keywords, start_date, end_date)
     results = [_summarize_result(result) for result in response.get("results", [])]
+    if len(results) != len(selected_keywords):
+        raise NaverDataLabError(
+            f"Naver DataLab 결과 수 불일치: 요청 {len(selected_keywords)}개, 응답 {len(results)}개"
+        )
+    if any(not result["data"] for result in results):
+        raise NaverDataLabError("Naver DataLab 결과에 관측값이 없습니다.")
     output = {
         "source": "naver_datalab_search_trend",
         "api_url": API_URL,

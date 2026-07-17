@@ -116,6 +116,17 @@ def run_pipeline(skip_reddit: bool = False, skip_naver: bool = False) -> dict:
         print(f"[Error] Scoring failed: {e}")
         results["steps"]["scoring"] = {"status": "error", "error": str(e)}
 
+    failed_steps = [
+        step_name
+        for step_name, step_data in results["steps"].items()
+        if step_data.get("status") == "error"
+    ]
+    naver_required = not skip_naver
+    naver_failed = naver_required and (
+        results["steps"].get("naver", {}).get("status") != "success"
+    )
+    results["status"] = "error" if failed_steps or naver_failed else "success"
+
     # Step 4: 리포트 생성
     print("\n=== Step 4: Report ===")
     results["completed_at"] = datetime.now(timezone.utc).isoformat()
@@ -125,6 +136,7 @@ def run_pipeline(skip_reddit: bool = False, skip_naver: bool = False) -> dict:
         json.dump(results, f, ensure_ascii=False, indent=2)
 
     print(f"\n[Pipeline] Complete. Report saved to {report_path}")
+    print(f"[Pipeline] Status: {results['status']}")
 
     # 요약 출력
     print("\n--- Pipeline Summary ---")
@@ -145,7 +157,10 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="AutoDir Pipeline Runner")
     parser.add_argument("--skip-reddit", action="store_true", help="Skip Reddit collection (no API credentials)")
-    parser.add_argument("--skip-naver", action="store_true", help="Skip Naver DataLab collection")
+    parser.add_argument(
+        "--skip-naver", action="store_true", help="Skip Naver DataLab collection"
+    )
     args = parser.parse_args()
 
-    run_pipeline(skip_reddit=args.skip_reddit, skip_naver=args.skip_naver)
+    result = run_pipeline(skip_reddit=args.skip_reddit, skip_naver=args.skip_naver)
+    raise SystemExit(0 if result["status"] == "success" else 1)
