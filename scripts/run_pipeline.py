@@ -61,10 +61,13 @@ def run_pipeline(skip_reddit: bool = False, skip_naver: bool = False) -> dict:
     else:
         try:
             naver = collect_naver()
+            naver_quality = naver.get("quality", {})
+            naver_status = naver_quality.get("status", "degraded")
             results["steps"]["naver"] = {
-                "status": "success",
+                "status": "success" if naver_status == "ready" else "degraded",
                 "keywords": len(naver.get("requested_keywords", [])),
                 "results": len(naver.get("results", [])),
+                "quality": naver_quality,
             }
         except Exception as e:
             print(f"[Error] Naver DataLab collection failed: {e}")

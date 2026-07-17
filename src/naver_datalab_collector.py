@@ -7,6 +7,7 @@ import requests
 
 DATA_DIR = Path(__file__).parent.parent / "data"
 API_URL = "https://openapi.naver.com/v1/datalab/search"
+EXPECTED_OBSERVATIONS = 12
 
 
 class NaverDataLabError(RuntimeError):
@@ -62,7 +63,13 @@ def _request_trends(keywords: list[str], start_date: date, end_date: date) -> di
     }
 
     try:
-        response = requests.post(API_URL, headers=headers, json=payload, timeout=15)
+        response = requests.post(
+            API_URL,
+            headers=headers,
+            json=payload,
+            timeout=15,
+            allow_redirects=False,
+        )
     except requests.RequestException as error:
         raise NaverDataLabError("Naver DataLab 네트워크 요청에 실패했습니다.") from error
 
@@ -121,6 +128,11 @@ def collect_all(keywords: list[str] | None = None) -> dict:
         )
     if any(not result["data"] for result in results):
         raise NaverDataLabError("Naver DataLab 결과에 관측값이 없습니다.")
+    incomplete_results = [
+        result["title"]
+        for result in results
+        if result["summary"]["observation_count"] < EXPECTED_OBSERVATIONS
+    ]
     output = {
         "source": "naver_datalab_search_trend",
         "api_url": API_URL,
@@ -131,6 +143,11 @@ def collect_all(keywords: list[str] | None = None) -> dict:
         },
         "requested_keywords": selected_keywords,
         "results": results,
+        "quality": {
+            "status": "degraded" if incomplete_results else "ready",
+            "expected_observations": EXPECTED_OBSERVATIONS,
+            "incomplete_results": incomplete_results,
+        },
         "request_count": 1,
         "collected_at": datetime.now(timezone.utc).isoformat(),
     }
