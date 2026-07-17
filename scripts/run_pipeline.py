@@ -19,6 +19,10 @@ PROJECT_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 from trends_collector import collect_all as collect_trends
+from naver_datalab_collector import (
+    collect_all as collect_naver,
+    credentials_configured as naver_credentials_configured,
+)
 from reddit_collector import collect_all as collect_reddit
 from hn_collector import collect_stories as collect_hn
 from niche_scorer import score_all_signals
@@ -26,7 +30,7 @@ from niche_scorer import score_all_signals
 DATA_DIR = PROJECT_ROOT / "data"
 
 
-def run_pipeline(skip_reddit: bool = False) -> dict:
+def run_pipeline(skip_reddit: bool = False, skip_naver: bool = False) -> dict:
     """전체 파이프라인을 실행합니다."""
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     results = {"started_at": datetime.now(timezone.utc).isoformat(), "steps": {}}
@@ -43,6 +47,28 @@ def run_pipeline(skip_reddit: bool = False) -> dict:
     except Exception as e:
         print(f"[Error] Trends collection failed: {e}")
         results["steps"]["trends"] = {"status": "error", "error": str(e)}
+
+    print("\n=== Step 1b: Naver DataLab ===")
+    if skip_naver:
+        print("[Skip] Naver DataLab skipped by flag")
+        results["steps"]["naver"] = {"status": "skipped", "reason": "flag"}
+    elif not naver_credentials_configured():
+        print("[Skip] Naver DataLab skipped (credentials not configured)")
+        results["steps"]["naver"] = {
+            "status": "skipped",
+            "reason": "credentials not configured",
+        }
+    else:
+        try:
+            naver = collect_naver()
+            results["steps"]["naver"] = {
+                "status": "success",
+                "keywords": len(naver.get("requested_keywords", [])),
+                "results": len(naver.get("results", [])),
+            }
+        except Exception as e:
+            print(f"[Error] Naver DataLab collection failed: {e}")
+            results["steps"]["naver"] = {"status": "error", "error": str(e)}
 
     # Step 2: Reddit 수집
     print("\n=== Step 2: Reddit Trends ===")
@@ -119,6 +145,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="AutoDir Pipeline Runner")
     parser.add_argument("--skip-reddit", action="store_true", help="Skip Reddit collection (no API credentials)")
+    parser.add_argument("--skip-naver", action="store_true", help="Skip Naver DataLab collection")
     args = parser.parse_args()
 
-    run_pipeline(skip_reddit=args.skip_reddit)
+    run_pipeline(skip_reddit=args.skip_reddit, skip_naver=args.skip_naver)
